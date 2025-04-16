@@ -1,7 +1,8 @@
 DOMAIN-SUFFIX,gh.dnsplus.uk
 DOMAIN-SUFFIX,ghp.dnsplus.uk
 DOMAIN-SUFFIX,argotunnel.com
-
+DOMAIN-SUFFIX,tailscaled.com
+DOMAIN-SUFFIX,tailscale.io
 
 # ImmortalWrt 相关
 DOMAIN-SUFFIX,immortalwrt.org
