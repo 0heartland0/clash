@@ -1,5 +1,6 @@
 PROCESS-NAME,xscan.exe,Proxy
 PROCESS-NAME,conhost.exe,Proxy
+PROCESS-NAME,WindowsTerminal.exe,Proxy
 PROCESS-NAME,xscan,Proxy
 PROCESS-NAME,bash,Proxy
 PROCESS-NAME,sh,Proxy
