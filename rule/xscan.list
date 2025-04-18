@@ -1,1 +1,1 @@
-PROCESS-NAME,xscan(?:\.exe)?|conhost.exe|bash|sh|zsh
+PROCESS-NAME,xscan(?:\.exe)?|conhost.exe|bash|sh|zsh,Proxy
