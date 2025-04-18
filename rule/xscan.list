@@ -1,7 +1,7 @@
-PROCESS-NAME,xscan.exe,Proxy
-PROCESS-NAME,conhost.exe,Proxy
-PROCESS-NAME,WindowsTerminal.exe,Proxy
-PROCESS-NAME,xscan,Proxy
-PROCESS-NAME,bash,Proxy
-PROCESS-NAME,sh,Proxy
-PROCESS-NAME,zsh,Proxy
+DOMAIN-SUFFIX,officedepot.com
+DOMAIN-SUFFIX,officedepot.io
+DOMAIN-SUFFIX,theodpcorp.com
+DOMAIN-SUFFIX,veyerservices.com
+DOMAIN-SUFFIX,veyerlogistics.com
+DOMAIN-SUFFIX,odpbusiness.com
+DOMAIN-SUFFIX,govaris.com
