@@ -130,5 +130,15 @@ DOMAIN-SUFFIX,edge.steam-dns.top.comcast.net
 DOMAIN-REGEX,^(xblmodassets2|content[12])\.prod\.catalog\.playfab\.com$
 DOMAIN-REGEX,^(pf-cdn-content-prod|khmarketcdn|kittyhawk2-prod|cdn-prod-sr-(live-marketplace-endpoint|live-cds-endpoint|weather))\.azureedge\.net$
 
+#DOMAIN-SUFFIX,xblmodassets2.prod.catalog.playfab.com
+#DOMAIN-SUFFIX,pf-cdn-content-prod.azureedge.net
+#DOMAIN-SUFFIX,khmarketcdn.azureedge.net
+#DOMAIN-SUFFIX,kittyhawk2-prod.azureedge.net
+#DOMAIN-SUFFIX,content2.prod.catalog.playfab.com
+#DOMAIN-SUFFIX,content1.prod.catalog.playfab.com
+#DOMAIN-SUFFIX,cdn-prod-sr-live-marketplace-endpoint.azureedge.net
+#DOMAIN-SUFFIX,cdn-prod-sr-live-cds-endpoint.azureedge.net
+#DOMAIN-SUFFIX,cdn-prod-sr-weather.azureedge.net
+
 # 最终幻想14(国际版) 游戏更新/下载
 DOMAIN-SUFFIX,patch-dl.ffxiv.com
