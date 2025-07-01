@@ -3,5 +3,4 @@
   
 | 名称 | 内容 |
 |:-:|:-:|
-| Full.ini | 搭配 OpenClash 绕过大陆功能使用的模板 |
-| Full_Github_Proxy.ini | 添加了 GitHub 反代地址的模板，适合架设在中国大陆地区的订阅转换服务使用 |
+| Full.ini | 标准模板 |
