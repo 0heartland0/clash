@@ -109,17 +109,5 @@ IP-CIDR,108.174.48.100/32,no-resolve
 # 雀魂麻将
 DOMAIN-SUFFIX,game.maj-soul.com
 
-# =======================================
-# 以下是应当直连的冷门国内域名规则
-# =======================================
-# ---------------------------------------
-# 以下是准备向 GeoSite 上游仓库提交 PR 的国内冷门域名，收录后会删除对应内容
-# ---------------------------------------
-# 以下域名待提交 PR
-
-# ---------------------------------------
-# 以下域名已提交 PR
-
-# PR 至 felixonmars/dnsmasq-china-list
-DOMAIN-SUFFIX,guanyierp.com
-DOMAIN-SUFFIX,chememall.com
+# 海翔登录
+DOMAIN-SUFFIX,seaflysoft.com
