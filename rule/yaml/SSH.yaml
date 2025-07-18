@@ -1,0 +1,4 @@
+payload:
+  - DST-PORT,22,GEOIP,!CN
+  - DST-PORT,3389,geoip,!CN
+  - DST-PORT,2222,geoip,!CN
