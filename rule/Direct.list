@@ -125,24 +125,21 @@ DOMAIN-SUFFIX,chaz.fun
 DOMAIN-SUFFIX,dushe1.app
 DOMAIN-SUFFIX,jxpp.com
 
+DOMAIN-SUFFIX,kmeila.com
+DOMAIN-SUFFIX,afuns.me
+DOMAIN-SUFFIX,dcgstd.com
+DOMAIN-SUFFIX,ghcr.io
 DOMAIN-SUFFIX,scbaijia.com
 DOMAIN-SUFFIX,7sef.com
 DOMAIN-SUFFIX,u-carloan.com
 DOMAIN-SUFFIX,qianuni.com
-
-
-# ---------------------------------------
-# 以下域名已提交 PR
-
-# PR 至 felixonmars/dnsmasq-china-list
 
 # 海翔登录
 DOMAIN-SUFFIX,seaflysoft.com
 # 希沃学习机
 DOMAIN-SUFFIX,seedpace.com
 DOMAIN-SUFFIX,qiaoxuesi.com
-
-DOMAIN-SUFFIX,zhongancloud.com
+DOMAIN-SUFFIX,zhongancloud.co
 DOMAIN-SUFFIX,tuxing.art
 DOMAIN-SUFFIX,lsbj365.com
 DOMAIN-SUFFIX,keyoo.com
@@ -179,6 +176,5 @@ DOMAIN-SUFFIX,gsjkjt.com
 DOMAIN-SUFFIX,gsstic.com
 DOMAIN-SUFFIX,sxlljm.com
 
-# PR 至 v2fly/domain-list-community
 # 鸿蒙出境易
 DOMAIN-SUFFIX,chujingapp.com
