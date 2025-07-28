@@ -5,7 +5,7 @@
 |:-:|:-:|:-:|
 | Full.ini | Meta | 标准模板 |
 | Full_Classical.ini | Meta | Classical标准模板 |
-| Full_Smart.ini | Smart | 智选目标准模板 |
+| Full_Smart.ini | Smart | 智选标准模板 |
 
 
 **加速链接：**
