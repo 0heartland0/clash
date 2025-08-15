@@ -12,6 +12,7 @@ DOMAIN-SUFFIX,gh-proxy.com
 DOMAIN-SUFFIX,gh.con.sh
 DOMAIN-SUFFIX,gh.ddlc.top
 DOMAIN-SUFFIX,gh.llkk.cc
+DOMAIN-SUFFIX,ghfast.top
 DOMAIN-SUFFIX,ghp.ci
 DOMAIN-SUFFIX,ghproxy.cc
 DOMAIN-SUFFIX,ghproxy.cfd
@@ -113,6 +114,7 @@ DOMAIN-SUFFIX,plushk1.younoyes.com
 DOMAIN-SUFFIX,plushk2.younoyes.com
 DOMAIN-SUFFIX,plushk3.younoyes.com
 
+DOMAIN-SUFFIX,dushe1.app
 
 # 游戏类规则
 # 红警重聚 Reunion 2023
@@ -120,26 +122,72 @@ IP-CIDR,108.174.48.100/32,no-resolve
 # 雀魂麻将
 DOMAIN-SUFFIX,game.maj-soul.com
 
-DOMAIN-SUFFIX,xdqtech.com
-DOMAIN-SUFFIX,chaz.fun
-DOMAIN-SUFFIX,dushe1.app
+# 机器人添加域名
+# 以下域名由用户通过机器人添加，无备案且 NS 不属于中国大陆
 DOMAIN-SUFFIX,jxpp.com
-
-DOMAIN-SUFFIX,kmeila.com
 DOMAIN-SUFFIX,afuns.me
+DOMAIN-SUFFIX,sanligu.top
+DOMAIN-SUFFIX,goka.top
+DOMAIN-SUFFIX,vbkr.com
+
+DOMAIN-SUFFIX,wenyi188.com
+DOMAIN-SUFFIX,icvcs.com
+DOMAIN-SUFFIX,ffhome.com
+DOMAIN-SUFFIX,gmya.net
+DOMAIN-SUFFIX,cg3da.com
+DOMAIN-SUFFIX,adobe.com
+DOMAIN-SUFFIX,xn--4kq62z5rby2qupq9ub.top
+DOMAIN-SUFFIX,starlink.uno
+DOMAIN-SUFFIX,kuaicha888.com
+DOMAIN-SUFFIX,rsfcxq.com
+DOMAIN-SUFFIX,wlcdn88.com
+DOMAIN-SUFFIX,snfox.com
+DOMAIN-SUFFIX,wewillpro.com
+DOMAIN-SUFFIX,zeekrline.com
+DOMAIN-SUFFIX,sapphiretech.com
+
+DOMAIN-SUFFIX,vbkhk.com
+DOMAIN-SUFFIX,mtaokj.com
+DOMAIN-SUFFIX,huikao8.com
+DOMAIN-SUFFIX,hszq6.com
+DOMAIN-SUFFIX,657192.com
+DOMAIN-SUFFIX,xixih.cc
+DOMAIN-SUFFIX,vbkrhk.com
+DOMAIN-SUFFIX,vcltrade.com
+DOMAIN-SUFFIX,hstbroker.com
+DOMAIN-SUFFIX,vclbroker.com
+DOMAIN-SUFFIX,vclbrokers.com
+DOMAIN-SUFFIX,webs.vc
+DOMAIN-SUFFIX,myshopex.com
+DOMAIN-SUFFIX,52met.com
+DOMAIN-SUFFIX,englibrary.com
+DOMAIN-SUFFIX,985hezi.com
+DOMAIN-SUFFIX,yiso.fun
+DOMAIN-SUFFIX,mslmc.net
+DOMAIN-SUFFIX,gzybao.com
+DOMAIN-SUFFIX,xiankabao.com
+DOMAIN-SUFFIX,ottai.com
+DOMAIN-SUFFIX,sksight.com
+DOMAIN-SUFFIX,51wanxue.com
+DOMAIN-SUFFIX,gaishitongshu.com
+DOMAIN-SUFFIX,zuobiao.press
+DOMAIN-SUFFIX,coros.com
+DOMAIN-SUFFIX,baiyishequ.com
+DOMAIN-SUFFIX,bdcb.cc
+DOMAIN-SUFFIX,xopenbeta.com
+DOMAIN-SUFFIX,igpsport.com
+DOMAIN-SUFFIX,kmeila.com
 DOMAIN-SUFFIX,dcgstd.com
-DOMAIN-SUFFIX,ghcr.io
 DOMAIN-SUFFIX,scbaijia.com
 DOMAIN-SUFFIX,7sef.com
 DOMAIN-SUFFIX,u-carloan.com
 DOMAIN-SUFFIX,qianuni.com
-
 # 海翔登录
 DOMAIN-SUFFIX,seaflysoft.com
 # 希沃学习机
 DOMAIN-SUFFIX,seedpace.com
 DOMAIN-SUFFIX,qiaoxuesi.com
-DOMAIN-SUFFIX,zhongancloud.co
+DOMAIN-SUFFIX,zhongancloud.com
 DOMAIN-SUFFIX,tuxing.art
 DOMAIN-SUFFIX,lsbj365.com
 DOMAIN-SUFFIX,keyoo.com
@@ -178,3 +226,7 @@ DOMAIN-SUFFIX,sxlljm.com
 
 # 鸿蒙出境易
 DOMAIN-SUFFIX,chujingapp.com
+DOMAIN-SUFFIX,xdqtech.com
+DOMAIN-SUFFIX,chaz.fun
+DOMAIN-SUFFIX,codeloop.top
+DOMAIN-SUFFIX,warmheart.top
