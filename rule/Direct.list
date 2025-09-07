@@ -113,7 +113,6 @@ DOMAIN-SUFFIX,plusus3.younoyes.com
 DOMAIN-SUFFIX,plushk1.younoyes.com
 DOMAIN-SUFFIX,plushk2.younoyes.com
 DOMAIN-SUFFIX,plushk3.younoyes.com
-
 DOMAIN-SUFFIX,dushe1.app
 
 # 游戏类规则
@@ -122,42 +121,108 @@ IP-CIDR,108.174.48.100/32,no-resolve
 # 雀魂麻将
 DOMAIN-SUFFIX,game.maj-soul.com
 
-# 机器人添加域名
-# 以下域名由用户通过机器人添加，无备案且 NS 不属于中国大陆
+# 软件类规则
+DOMAIN-SUFFIX,adobe.com
+
 DOMAIN-SUFFIX,jxpp.com
 DOMAIN-SUFFIX,afuns.me
 DOMAIN-SUFFIX,sanligu.top
 DOMAIN-SUFFIX,goka.top
 DOMAIN-SUFFIX,vbkr.com
+DOMAIN-SUFFIX,xn--4kq62z5rby2qupq9ub.top
+DOMAIN-SUFFIX,ok321.top
+DOMAIN-SUFFIX,bsbsb.top
+DOMAIN-SUFFIX,istoreos.com
+DOMAIN-SUFFIX,wlcdn88.com
+DOMAIN-SUFFIX,sapphiretech.com
+DOMAIN-SUFFIX,idsduf.com
+DOMAIN-SUFFIX,webs.vc
+DOMAIN-SUFFIX,657192.com
+DOMAIN-SUFFIX,netzz.net
+DOMAIN-SUFFIX,xdtool.com
+DOMAIN-SUFFIX,ipshu.com
+DOMAIN-SUFFIX,900cha.com
+DOMAIN-SUFFIX,51zmt.top
+DOMAIN-SUFFIX,chenyuxia.com
+DOMAIN-SUFFIX,nxog.top
+DOMAIN-SUFFIX,halvie.com
+DOMAIN-SUFFIX,tcp.pub
+DOMAIN-SUFFIX,douqq.com
+DOMAIN-SUFFIX,lyihub.com
+DOMAIN-SUFFIX,204cloud.com
+DOMAIN-SUFFIX,mobai.sbs
+DOMAIN-SUFFIX,meishiffx.online
+DOMAIN-SUFFIX,lyilife.com
+DOMAIN-SUFFIX,ifish7.com
+DOMAIN-SUFFIX,feizhiyi.com
+DOMAIN-SUFFIX,fsytss.com
+DOMAIN-SUFFIX,googoc.com
+DOMAIN-SUFFIX,ip159.com
+DOMAIN-SUFFIX,gjtool.com
+DOMAIN-SUFFIX,gseen.com
+DOMAIN-SUFFIX,52muban.com
+DOMAIN-SUFFIX,998tool.com
+DOMAIN-SUFFIX,neihang.net
+DOMAIN-SUFFIX,fzwqq.com
+DOMAIN-SUFFIX,naixi.com
+DOMAIN-SUFFIX,chaxunjiao.com
+DOMAIN-SUFFIX,tool56.com
+DOMAIN-SUFFIX,fofuai.com
+DOMAIN-SUFFIX,qinglue.com
+DOMAIN-SUFFIX,mykuaidi.com
+DOMAIN-SUFFIX,thinkerride.com
+DOMAIN-SUFFIX,tailgdd.com
+DOMAIN-SUFFIX,115cdn.de
+DOMAIN-SUFFIX,micu.hk
+DOMAIN-SUFFIX,ugdocker.link
 
+
+# 鸿蒙出境易
+DOMAIN-SUFFIX,chujingapp.com
+DOMAIN-SUFFIX,xdqtech.com
+DOMAIN-SUFFIX,chaz.fun
+DOMAIN-SUFFIX,codeloop.top
+DOMAIN-SUFFIX,warmheart.top
+
+DOMAIN-SUFFIX,xbgjw.com
+DOMAIN-SUFFIX,z6e.com
+DOMAIN-SUFFIX,frp-ski.com
+DOMAIN-SUFFIX,clivia.fun
+DOMAIN-SUFFIX,girigirilove.com
+DOMAIN-SUFFIX,aistudio-app.com
+DOMAIN-SUFFIX,dothantech.com
+DOMAIN-SUFFIX,congmiqq.com
+DOMAIN-SUFFIX,mifeng.plus
+DOMAIN-SUFFIX,paperang.com
+DOMAIN-SUFFIX,centbrowser.net
+DOMAIN-SUFFIX,anycubic.com
+DOMAIN-SUFFIX,vgogbuy.com
+DOMAIN-SUFFIX,onebuygz.com
+DOMAIN-SUFFIX,yongyu.xyz
+DOMAIN-SUFFIX,yooc.me
+DOMAIN-SUFFIX,hwbim.com
+DOMAIN-SUFFIX,03241119.xyz
 DOMAIN-SUFFIX,wenyi188.com
 DOMAIN-SUFFIX,icvcs.com
 DOMAIN-SUFFIX,ffhome.com
 DOMAIN-SUFFIX,gmya.net
 DOMAIN-SUFFIX,cg3da.com
-DOMAIN-SUFFIX,adobe.com
-DOMAIN-SUFFIX,xn--4kq62z5rby2qupq9ub.top
 DOMAIN-SUFFIX,starlink.uno
 DOMAIN-SUFFIX,kuaicha888.com
 DOMAIN-SUFFIX,rsfcxq.com
-DOMAIN-SUFFIX,wlcdn88.com
 DOMAIN-SUFFIX,snfox.com
 DOMAIN-SUFFIX,wewillpro.com
 DOMAIN-SUFFIX,zeekrline.com
-DOMAIN-SUFFIX,sapphiretech.com
-
 DOMAIN-SUFFIX,vbkhk.com
 DOMAIN-SUFFIX,mtaokj.com
 DOMAIN-SUFFIX,huikao8.com
 DOMAIN-SUFFIX,hszq6.com
-DOMAIN-SUFFIX,657192.com
 DOMAIN-SUFFIX,xixih.cc
 DOMAIN-SUFFIX,vbkrhk.com
 DOMAIN-SUFFIX,vcltrade.com
 DOMAIN-SUFFIX,hstbroker.com
 DOMAIN-SUFFIX,vclbroker.com
 DOMAIN-SUFFIX,vclbrokers.com
-DOMAIN-SUFFIX,webs.vc
 DOMAIN-SUFFIX,myshopex.com
 DOMAIN-SUFFIX,52met.com
 DOMAIN-SUFFIX,englibrary.com
@@ -223,10 +288,3 @@ DOMAIN-SUFFIX,gsnhcg.com
 DOMAIN-SUFFIX,gsjkjt.com
 DOMAIN-SUFFIX,gsstic.com
 DOMAIN-SUFFIX,sxlljm.com
-
-# 鸿蒙出境易
-DOMAIN-SUFFIX,chujingapp.com
-DOMAIN-SUFFIX,xdqtech.com
-DOMAIN-SUFFIX,chaz.fun
-DOMAIN-SUFFIX,codeloop.top
-DOMAIN-SUFFIX,warmheart.top
