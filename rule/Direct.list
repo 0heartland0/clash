@@ -1,8 +1,9 @@
-DOMAIN-SUFFIX,gh.dnsplus.uk
-DOMAIN-SUFFIX,ghp.dnsplus.uk
-DOMAIN-SUFFIX,argotunnel.com
-DOMAIN-SUFFIX,tailscaled.com
-DOMAIN-SUFFIX,tailscale.io
+# NAME: Custom_Direct
+# AUTHOR: Aethersailor
+# REPO: https://github.com/Aethersailor/Custom_OpenClash_Rules
+# 强制直连域名列表，来自个人收集
+# 此规则文件中的域名会定期 PR 至 Geosite 数据库，并删除已被 Geosite 收录的域名，因此请在支持 Geosite 的软件（如 OpenClash）中使用。
+
 
 # ImmortalWrt 相关
 DOMAIN-SUFFIX,immortalwrt.org
@@ -212,6 +213,14 @@ DOMAIN-SUFFIX,imacos.top
 # 以下是准备向 GeoSite 上游仓库提交 PR 的国内冷门域名，收录后会注释对应内容
 # ---------------------------------------
 # 以下域名待提交 PR
+# 企业网站 / add by Telegram user: mr. / Date: 2025-09-22 23:52:33
+DOMAIN-SUFFIX,einfo-tech.com
+# add by Telegram user: 法兰西 / Date: 2025-09-22 20:12:53
+DOMAIN-SUFFIX,afeica.com
+# pt站劳教所 / add by Telegram user: kevin / Date: 2025-09-22 14:36:31
+DOMAIN-SUFFIX,ptl.gs
+# pt站劳教所 / add by Telegram user: kevin / Date: 2025-09-22 14:35:53
+DOMAIN-SUFFIX,ptlgs.org
 # NHK官网 / add by Telegram user: 雪菜 / Date: 2025-09-21 22:03:09
 DOMAIN-SUFFIX,nhk.or.jp
 
@@ -588,3 +597,6 @@ DOMAIN-SUFFIX,sxlljm.com
 #DOMAIN-SUFFIX,winyoungreading.com
 # fnOS
 #DOMAIN-SUFFIX,5ddd.com
+
+
+# 更多已被收录的域名，此处未做保留
