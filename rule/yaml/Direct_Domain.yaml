@@ -1,3 +1,5 @@
+# TOTAL: 272
+
 payload:
   - '*m-team*'
   - '*quickconnect*'
@@ -19,6 +21,7 @@ payload:
   - '+.985hezi.com'
   - '+.998tool.com'
   - '+.adobe.com'
+  - '+.afeica.com'
   - '+.afuns.me'
   - '+.aistudio-app.com'
   - '+.akamaihd.net'
@@ -63,6 +66,7 @@ payload:
   - '+.dothantech.com'
   - '+.douqq.com'
   - '+.dushe1.app'
+  - '+.einfo-tech.com'
   - '+.englibrary.com'
   - '+.epg.aptv.app'
   - '+.epg.v1.mk'
@@ -196,6 +200,8 @@ payload:
   - '+.pool.ntp.org'
   - '+.powershellgallery.com'
   - '+.privateapi.xyz'
+  - '+.ptl.gs'
+  - '+.ptlgs.org'
   - '+.qiankunshopping.com'
   - '+.qianuni.com'
   - '+.qiaoxuesi.com'
