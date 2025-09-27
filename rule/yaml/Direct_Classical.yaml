@@ -8,6 +8,7 @@ payload:
   - DOMAIN-SUFFIX,112114.xyz
   - DOMAIN-SUFFIX,115cdn.de
   - DOMAIN-SUFFIX,1996999.xyz
+  - DOMAIN-SUFFIX,1key.me
   - DOMAIN-SUFFIX,204cloud.com
   - DOMAIN-SUFFIX,51wanxue.com
   - DOMAIN-SUFFIX,51zmt.top
@@ -277,3 +278,4 @@ payload:
   - IP-CIDR,218.78.7.16/32,no-resolve
   - IP-CIDR,5.5.5.5/32,no-resolve
   - IP-CIDR,98.126.27.164/32,no-resolve
+  - IP-CIDR,113.108.0.136/32,no-resolve
