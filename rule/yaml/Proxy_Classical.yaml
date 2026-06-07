@@ -1,4 +1,4 @@
-# TOTAL: 17
+# TOTAL: 16
 
 payload:
   - DOMAIN-SUFFIX,7pzzv.us
@@ -8,6 +8,7 @@ payload:
   - DOMAIN-SUFFIX,dmhy.org
   - DOMAIN-SUFFIX,googleapis.cn
   - DOMAIN-SUFFIX,hoyolab.com
+  - DOMAIN-SUFFIX,hoyoverse.com
   - DOMAIN-SUFFIX,ip.sb
   - DOMAIN-SUFFIX,ipify.org
   - DOMAIN-SUFFIX,mtalk.google.com
@@ -16,5 +17,3 @@ payload:
   - DOMAIN-SUFFIX,services.googleapis.cn
   - DOMAIN-SUFFIX,stun.playstation.net
   - DOMAIN-SUFFIX,xn--ngstr-lra8j.com
-  - IP-CIDR,1.0.0.1/32,no-resolve
-  - IP-CIDR,1.1.1.1/32,no-resolve
