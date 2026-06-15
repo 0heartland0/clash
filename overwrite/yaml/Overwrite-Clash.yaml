@@ -1,49 +1,86 @@
-# 主要规则基于 GeoSite + GeoIP，补充规则来自本项目仓库
-
-
-# 仅提供代理组、策略组等参数内容
-# DNS、IPv6 等参数不做配置，请根据自己实际情况，使用客户端覆写功能添加，或手动填写
-
-# 不要启用 fallback 服务器！！
-# 本配置文件默认阻断所有海外加密 DNS 连接，以配合DNS 解锁功能
-# 在 OpenClash 下使用务必开启绕过中国大陆功能，否则将无法使用国内 DOH 服务器
-
-# 遵循 mihomo 官方配置范例格式，如需修改，请参考官方完整配置范例
-
-
-port: 7890
-socks-port: 7891
-allow-lan: true
-mode: rule
-log-level: info
-external-controller: 127.0.0.1:9090
-
-proxy-providers:
-# 机场订阅
-  Airport:
+# =========================================
+#                锚点配置
+# =========================================
+anchor:
+  # 代理提供商锚点
+  BaseProvider: &BaseProvider
     type: http
-    url: 填写你的机场订阅地址
-    interval: 1800
-    # 若无法直连拉取，则删去下方 proxy: DIRECT
+    interval: 3600
     proxy: DIRECT
-    path: ./proxy_provider/Airport.yaml
     health-check:
       enable: true
-      url: https://cp.cloudflare.com/generate_204
-      interval: 120
+      url: "https://g.cn/generate_204"
+      interval: 10
     override:
-      skip-cert-verify: false
+      skip-cert-verify: true
       udp: true
+    path: ./proxy_provider/provider.yaml
+    filter: >-
+      ^(?!.*(群|邀请|返利|循环|官网|客服|网站|网址|获取|订阅|流量|到期|机场|下次|版本|官址|备用|过期|已用|联系|邮箱|工单|贩卖|通知|倒卖|防止|国内|地址|频道|无法|说明|使用|提示|特别|访问|支持|教程|关注|更新|作者|加入|USE|USED|TOTAL|EXPIRE|EMAIL|Panel|Channel|Author)).*$
 
-# 媒体类分流优先新加坡区，其余分流优先港区
-# 默认使用 fallback + urltest，如需使用 smart，请启用覆写设置中 smart 替换 urltest 的功能
-
-proxy-groups:
-  - name: 手动选择
-    type: fallback
-    icon: https://raw.githubusercontent.com/0heartland0/clash/main/icon/Rocket.png
+  # 策略组类型模板
+  BaseURL-test: &BaseURL-test
+    type: url-test
+    include-all: true
+    tolerance: 20
+    interval: 120
     url: https://cp.cloudflare.com/generate_204
-    interval: 60
+    hidden: true
+
+  # 节点筛选正则
+  # 香港
+  FilterHK: &FilterHK >-
+    ^(🇭🇰|港|\bHK(?:[-_ ]?\d+(?:[-_ ]?[A-Za-z]{2,})?)?\b|hk|Hong Kong|HongKong|hongkong|HONG KONG|HONGKONG|深港|HKG|九龙|Kowloon|新界|沙田|荃湾|葵涌).*$
+  # 台湾
+  FilterCN: &FilterCN >-
+    ^(🇨🇳|台|新北|彰化|\bTW(?:[-_ ]?\d+(?:[-_ ]?[A-Za-z]{2,})?)?\b|Taiwan|TAIWAN|TWN|TPE|ROC).*$
+  # 美国
+  FilterUS: &FilterUS >-
+    ^(🇺🇸|美|波特兰|达拉斯|俄勒冈|凤凰城|费利蒙|硅谷|拉斯维加斯|洛杉矶|圣何塞|圣克拉拉|西雅图|芝加哥|纽约|纽纽|亚特兰大|迈阿密|华盛顿|\bUS(?:[-_ ]?\d+(?:[-_ ]?[A-Za-z]{2,})?)?\b|United States|UnitedStates|UNITED STATES|USA|America|AMERICA|JFK|EWR|IAD|ATL|ORD|MIA|NYC|LAX|SFO|SEA|DFW|SJC).*$
+  # 日本
+  FilterJP: &FilterJP >-
+    ^(?=.*(🇯🇵|日本|川日|东京|大阪|泉日|埼玉|沪日|深日|\bJP(?:[-_ ]?\d+(?:[-_ ]?[A-Za-z]{2,})?)?\b|Japan|JAPAN|JPN|NRT|HND|KIX|TYO|OSA|关西|Kansai|KANSAI).*$
+  # 新加坡
+  FilterSG: &FilterSG >-
+    ^(🇸🇬|新加坡|坡|狮城|\bSG(?:[-_ ]?\d+(?:[-_ ]?[A-Za-z]{2,})?)?\b|Singapore|SINGAPORE|SIN).*$
+  # 韩国
+  FilterKR: &FilterKR >-
+    ^(🇰🇷|\bKR(?:[-_ ]?\d+(?:[-_ ]?[A-Za-z]{2,})?)?\b|Korea|KOREA|KOR|首尔|韩|韓|春川|Chuncheon|ICN).*$
+  # 加拿大
+  FilterCA: &FilterCA >-
+    ^(🇨🇦|加拿大|\bCA(?:[-_ ]?\d+(?:[-_ ]?[A-Za-z]{2,})?)?\b|Canada|CANADA|CAN|渥太华|温哥华|卡尔加里|蒙特利尔|Montreal|YVR|YYZ|YUL).*$
+  # 英国
+  FilterGB: &FilterGB >-
+    ^(🇬🇧|英国|Britain|United Kingdom|UNITED KINGDOM|England|伦敦|曼彻斯特|Manchester|\bUK(?:[-_ ]?\d+(?:[-_ ]?[A-Za-z]{2,})?)?\b|GBR|LHR|MAN).*$
+  # 法国
+  FilterFR: &FilterFR >-
+    ^(🇫🇷|法国|\bFR(?:[-_ ]?\d+(?:[-_ ]?[A-Za-z]{2,})?)?\b|France|FRANCE|FRA|巴黎|马赛|Marseille|CDG|MRS).*$
+  # 德国
+  FilterDE: &FilterDE >-
+    ^(🇩🇪|德国|Germany|GERMANY|\bDE(?:[-_ ]?\d+(?:[-_ ]?[A-Za-z]{2,})?)?\b|DEU|柏林|法兰克福|慕尼黑|Munich|MUC).*$
+  # 荷兰
+  FilterNL: &FilterNL >-
+    ^(🇳🇱|荷兰|Netherlands|NETHERLANDS|\bNL(?:[-_ ]?\d+(?:[-_ ]?[A-Za-z]{2,})?)?\b|NLD|阿姆斯特丹|AMS).*$
+  # 土耳其
+  FilterTR: &FilterTR >-
+    ^(🇹🇷|土耳其|Turkey|TURKEY|Türkiye|\bTR(?:[-_ ]?\d+(?:[-_ ]?[A-Za-z]{2,})?)?\b|TUR|IST|ANK).*$
+  # 俄罗斯
+  FilterRU: &FilterRU >-
+    ^(🇷🇺|(?<!白)俄罗斯|(?<!白)俄|莫斯科|圣彼得堡|新西伯利亚|海参崴|符拉迪沃斯托克|哈巴罗夫斯克|伯力|\bRU(?:[-_ ]?\d+)?\b|Russia).*$
+  # 其他
+  FilterOR: &FilterOR >-
+    ^(^(?!.*(港|\bHK(?:[-_ ]?\d+(?:[-_ ]?[A-Za-z]{2,})?)?\b|hk|Hong Kong|HongKong|hongkong|HONG KONG|HONGKONG|深港|HKG|🇭🇰|九龙|Kowloon|新界|沙田|荃湾|葵涌|台|新北|彰化|\bTW(?:[-_ ]?\d+(?:[-_ ]?[A-Za-z]{2,})?)?\b|Taiwan|TAIWAN|TWN|TPE|ROC|🇨🇳|\bKR(?:[-_ ]?\d+(?:[-_ ]?[A-Za-z]{2,})?)?\b|美|波特兰|达拉斯|俄勒冈|凤凰城|费利蒙|硅谷|拉斯维加斯|洛杉矶|圣何塞|圣克拉拉|西雅图|芝加哥|纽约|纽纽|亚特兰大|迈阿密|华盛顿|\bUS(?:[-_ ]?\d+(?:[-_ ]?[A-Za-z]{2,})?)?\b|United States|UnitedStates|UNITED STATES|USA|America|AMERICA|JFK|EWR|IAD|ATL|ORD|MIA|NYC|LAX|SFO|SEA|DFW|SJC|🇺🇸|日本|川日|东京|大阪|泉日|埼玉|沪日|深日|\bJP(?:[-_ ]?\d+(?:[-_ ]?[A-Za-z]{2,})?)?\b|Japan|JAPAN|JPN|NRT|HND|KIX|TYO|OSA|🇯🇵|关西|Kansai|KANSAI|新加坡|坡|狮城|\bSG(?:[-_ ]?\d+(?:[-_ ]?[A-Za-z]{2,})?)?\b|Singapore|SINGAPORE|SIN|🇸🇬|Korea|KOREA|KOR|首尔|韩|韓|春川|Chuncheon|ICN|🇰🇷|加拿大|\bCA(?:[-_ ]?\d+(?:[-_ ]?[A-Za-z]{2,})?)?\b|Canada|CANADA|CAN|渥太华|温哥华|卡尔加里|蒙特利尔|Montreal|YVR|YYZ|YUL|🇨🇦|英国|Britain|United Kingdom|UNITED KINGDOM|England|伦敦|曼彻斯特|Manchester|\bUK(?:[-_ ]?\d+(?:[-_ ]?[A-Za-z]{2,})?)?\b|GBR|LHR|MAN|🇬🇧|法国|\bFR(?:[-_ ]?\d+(?:[-_ ]?[A-Za-z]{2,})?)?\b|France|FRANCE|FRA|巴黎|马赛|Marseille|CDG|MRS|🇫🇷|德国|Germany|GERMANY|\bDE(?:[-_ ]?\d+(?:[-_ ]?[A-Za-z]{2,})?)?\b|DEU|柏林|法兰克福|慕尼黑|Munich|MUC|🇩🇪|荷兰|Netherlands|NETHERLANDS|\bNL(?:[-_ ]?\d+(?:[-_ ]?[A-Za-z]{2,})?)?\b|NLD|阿姆斯特丹|AMS|🇳🇱|土耳其|Turkey|TURKEY|Türkiye|\bTR(?:[-_ ]?\d+(?:[-_ ]?[A-Za-z]{2,})?)?\b|TUR|IST|ANK|🇹🇷|🇷🇺|(?<!白)俄罗斯|(?<!白)俄|莫斯科|圣彼得堡|新西伯利亚|海参崴|符拉迪沃斯托克|哈巴罗夫斯克|伯力|\bRU(?:[-_ ]?\d+)?\b|Russia)).*).*$
+
+# 策略组代理列表模板 - 预定义的代理节点优先级排序
+  SelectAU: &SelectAU
+    type: url-test
+    include-all: true
+    tolerance: 20
+    interval: 120
+    filter: "^((?!(直连)).)*$"
+
+  SelectMS: &SelectMS
+    type: select
     proxies:
       - 香港节点
       - 台湾节点
@@ -59,584 +96,655 @@ proxy-groups:
       - 土耳其节点
       - 俄罗斯节点
       - 其他地区
+    use:
+      - Sub-store
+
+  SelectMH: &SelectMH
+    type: select
+    proxies:
+      - 香港节点
+      - 台湾节点
+      - 美国节点
+      - 日本节点
+      - 新加坡节点
+      - 韩国节点
+      - 加拿大节点
+      - 英国节点
+      - 法国节点
+      - 德国节点
+      - 荷兰节点
+      - 土耳其节点
+      - 俄罗斯节点
+      - 其他地区
+    use:
+      - Sub-store
+
+  SelectHK: &SelectHK
+    type: select
+    proxies:
+      - 香港节点
+      - 台湾节点
+      - 美国节点
+      - 日本节点
+      - 新加坡节点
+      - 韩国节点
+      - 加拿大节点
+      - 英国节点
+      - 法国节点
+      - 德国节点
+      - 荷兰节点
+      - 土耳其节点
+      - 俄罗斯节点
+      - 其他地区
+
+  SelectCN: &SelectCN
+    type: select
+    proxies:
+      - 台湾节点
+      - 香港节点
+      - 美国节点
+      - 日本节点
+      - 新加坡节点
+      - 韩国节点
+      - 加拿大节点
+      - 英国节点
+      - 法国节点
+      - 德国节点
+      - 荷兰节点
+      - 土耳其节点
+      - 俄罗斯节点
+      - 其他地区
+
+  SelectUS: &SelectUS
+    type: select
+    proxies:
+      - 美国节点
+      - 香港节点
+      - 台湾节点
+      - 日本节点
+      - 新加坡节点
+      - 韩国节点
+      - 加拿大节点
+      - 英国节点
+      - 法国节点
+      - 德国节点
+      - 荷兰节点
+      - 土耳其节点
+      - 俄罗斯节点
+      - 其他地区
+
+  SelectJP: &SelectJP
+    type: select
+    proxies:
+      - 日本节点
+      - 香港节点
+      - 台湾节点
+      - 美国节点      
+      - 新加坡节点
+      - 韩国节点
+      - 加拿大节点
+      - 英国节点
+      - 法国节点
+      - 德国节点
+      - 荷兰节点
+      - 土耳其节点
+      - 俄罗斯节点
+      - 其他地区
+
+  SelectSG: &SelectSG
+    type: select
+    proxies:
+      - 新加坡节点
+      - 香港节点
+      - 台湾节点
+      - 美国节点
+      - 日本节点
+      - 韩国节点
+      - 加拿大节点
+      - 英国节点
+      - 法国节点
+      - 德国节点
+      - 荷兰节点
+      - 土耳其节点
+      - 俄罗斯节点
+      - 其他地区
+
+  SelectKR: &SelectKR
+    type: select
+    proxies:
+      - 韩国节点
+      - 香港节点
+      - 台湾节点
+      - 美国节点
+      - 日本节点
+      - 新加坡节点
+      - 加拿大节点
+      - 英国节点
+      - 法国节点
+      - 德国节点
+      - 荷兰节点
+      - 土耳其节点
+      - 俄罗斯节点
+      - 其他地区
+
+  SelectCA: &SelectCA
+    type: select
+    proxies:
+      - 加拿大节点
+      - 香港节点
+      - 台湾节点
+      - 美国节点
+      - 日本节点
+      - 新加坡节点
+      - 韩国节点
+      - 英国节点
+      - 法国节点
+      - 德国节点
+      - 荷兰节点
+      - 土耳其节点
+      - 俄罗斯节点
+      - 其他地区
+
+  SelectGB: &SelectGB
+    type: select
+    proxies:
+      - 英国节点
+      - 香港节点
+      - 台湾节点
+      - 美国节点
+      - 日本节点
+      - 新加坡节点
+      - 韩国节点
+      - 加拿大节点
+      - 法国节点
+      - 德国节点
+      - 荷兰节点
+      - 土耳其节点
+      - 俄罗斯节点
+      - 其他地区
+
+  SelectFR: &SelectFR
+    type: select
+    proxies:
+      - 法国节点
+      - 香港节点
+      - 台湾节点
+      - 美国节点
+      - 日本节点
+      - 新加坡节点
+      - 韩国节点
+      - 加拿大节点
+      - 英国节点
+      - 德国节点
+      - 荷兰节点
+      - 土耳其节点
+      - 俄罗斯节点
+      - 其他地区
+
+  SelectDE: &SelectDE
+    type: select
+    proxies:
+      - 德国节点
+      - 香港节点
+      - 台湾节点
+      - 美国节点
+      - 日本节点
+      - 新加坡节点
+      - 韩国节点
+      - 加拿大节点
+      - 英国节点
+      - 法国节点
+      - 荷兰节点
+      - 土耳其节点
+      - 俄罗斯节点
+      - 其他地区
+
+  SelectNL: &SelectNL
+    type: select
+    proxies:
+      - 荷兰节点
+      - 香港节点
+      - 台湾节点
+      - 美国节点
+      - 日本节点
+      - 新加坡节点
+      - 韩国节点
+      - 加拿大节点
+      - 英国节点
+      - 法国节点
+      - 德国节点
+      - 土耳其节点
+      - 俄罗斯节点
+      - 其他地区
+
+  SelectTR: &SelectTR
+    type: select
+    proxies:
+      - 土耳其节点
+      - 香港节点
+      - 台湾节点
+      - 美国节点
+      - 日本节点
+      - 新加坡节点
+      - 韩国节点
+      - 加拿大节点
+      - 英国节点
+      - 法国节点
+      - 德国节点
+      - 荷兰节点
+      - 俄罗斯节点
+      - 其他地区
+
+  SelectRU: &SelectRU
+    type: select
+    proxies:
+      - 俄罗斯节点
+      - 香港节点
+      - 台湾节点
+      - 美国节点
+      - 日本节点
+      - 新加坡节点
+      - 韩国节点
+      - 加拿大节点
+      - 英国节点
+      - 法国节点
+      - 德国节点
+      - 荷兰节点
+      - 土耳其节点
+      - 其他地区
+
+  SelectOR: &SelectOR
+    type: select
+    proxies:
+      - 其他地区
+      - 香港节点
+      - 台湾节点
+      - 美国节点
+      - 日本节点
+      - 新加坡节点
+      - 韩国节点
+      - 加拿大节点
+      - 英国节点
+      - 法国节点
+      - 德国节点
+      - 荷兰节点
+      - 土耳其节点
+      - 俄罗斯节点
+
+
+# 规则提供者模板
+  ip: &ip
+    type: http
+    interval: 86400
+    behavior: ipcidr
+    format: mrs
+
+  domain: &domain
+    type: http
+    interval: 86400
+    behavior: domain
+    format: mrs
+
+  class: &class
+    type: http
+    interval: 86400
+    behavior: classical
+    format: text
+
+# =========================================
+#              代理提供商
+# =========================================
+proxy-providers:
+  Sub-store:
+    <<: *BaseProvider
+    url: "url"
+
+# 策略组
+# =========================================
+#             策略组配置
+# =========================================
+proxy-groups:
+
+  - name: 手动选择
+    <<: *SelectMS
+    icon: "https://raw.githubusercontent.com/0heartland0/clash/main/icon/Rocket.png"
+
+  - name: 自动选择
+    <<: *SelectAU
+    icon: "https://raw.githubusercontent.com/0heartland0/clash/main/icon/Rocket.png"
 
   - name: SSH专用
-    icon: https://raw.githubusercontent.com/0heartland0/clash/main/icon/Terminal.png
-    type: fallback
-    url: https://cp.cloudflare.com/generate_204
-    interval: 60
-    proxies:
-      - 香港节点
-      - 台湾节点
-      - 美国节点
-      - 日本节点
-      - 新加坡节点
-      - 韩国节点
-      - 加拿大节点
-      - 英国节点
-      - 法国节点
-      - 德国节点
-      - 荷兰节点
-      - 土耳其节点
-      - 俄罗斯节点
-      - 其他地区
+    <<: *SelectMS
+    icon: "https://raw.githubusercontent.com/0heartland0/clash/main/icon/Terminal.png"
 
   - name: AI服务
-    icon: https://raw.githubusercontent.com/0heartland0/clash/main/icon/Bot.png
-    type: fallback
-    url: https://cp.cloudflare.com/generate_204
-    interval: 60
-    proxies:
-      - 香港节点
-      - 台湾节点
-      - 美国节点
-      - 日本节点
-      - 新加坡节点
-      - 韩国节点
-      - 加拿大节点
-      - 英国节点
-      - 法国节点
-      - 德国节点
-      - 荷兰节点
-      - 土耳其节点
-      - 俄罗斯节点
-      - 其他地区
+    <<: *SelectUS
+    icon: "https://raw.githubusercontent.com/0heartland0/clash/main/icon/Bot.png"
 
-  - name: Github
-    icon: https://raw.githubusercontent.com/0heartland0/clash/main/icon/Github.png
-    type: fallback
-    url: https://cp.cloudflare.com/generate_204
-    interval: 60
-    proxies:
-      - 香港节点
-      - 台湾节点
-      - 美国节点
-      - 日本节点
-      - 新加坡节点
-      - 韩国节点
-      - 加拿大节点
-      - 英国节点
-      - 法国节点
-      - 德国节点
-      - 荷兰节点
-      - 土耳其节点
-      - 俄罗斯节点
-      - 其他地区
+  - name: GitHub
+    <<: *SelectAU
+    icon: "https://raw.githubusercontent.com/0heartland0/clash/main/icon/GitHub.png"
 
   - name: PayPal
-    icon: https://raw.githubusercontent.com/0heartland0/clash/main/icon/PayPal.png
-    type: fallback
-    url: https://cp.cloudflare.com/generate_204
-    interval: 60
-    proxies:
-      - 香港节点
-      - 台湾节点
-      - 美国节点
-      - 日本节点
-      - 新加坡节点
-      - 韩国节点
-      - 加拿大节点
-      - 英国节点
-      - 法国节点
-      - 德国节点
-      - 荷兰节点
-      - 土耳其节点
-      - 俄罗斯节点
-      - 其他地区
+    <<: *SelectAU
+    icon: "https://raw.githubusercontent.com/0heartland0/clash/main/icon/PayPal.png"
 
   - name: 测速工具
-    icon: https://raw.githubusercontent.com/0heartland0/clash/main/icon/Speedtest.png
-    type: fallback
-    url: https://cp.cloudflare.com/generate_204
-    interval: 60
-    proxies:
-      - 香港节点
-      - 台湾节点
-      - 美国节点
-      - 日本节点
-      - 新加坡节点
-      - 韩国节点
-      - 加拿大节点
-      - 英国节点
-      - 法国节点
-      - 德国节点
-      - 荷兰节点
-      - 土耳其节点
-      - 俄罗斯节点
-      - 其他地区
+    <<: *SelectAU
+    icon: "https://raw.githubusercontent.com/0heartland0/clash/main/icon/Speedtest.png"
 
   - name: 海外通讯
-    icon: https://raw.githubusercontent.com/0heartland0/clash/main/icon/Telegram.png
-    type: fallback
-    url: https://cp.cloudflare.com/generate_204
-    interval: 60
-    proxies:
-      - 香港节点
-      - 台湾节点
-      - 美国节点
-      - 日本节点
-      - 新加坡节点
-      - 韩国节点
-      - 加拿大节点
-      - 英国节点
-      - 法国节点
-      - 德国节点
-      - 荷兰节点
-      - 土耳其节点
-      - 俄罗斯节点
-      - 其他地区
+    <<: *SelectAU
+    icon: "https://raw.githubusercontent.com/0heartland0/clash/main/icon/Telegram.png"
 
   - name: 社交媒体
-    icon: https://raw.githubusercontent.com/0heartland0/clash/main/icon/SNS.png
-    type: fallback
-    url: https://cp.cloudflare.com/generate_204
-    interval: 60
-    proxies:
-      - 香港节点
-      - 台湾节点
-      - 美国节点
-      - 日本节点
-      - 新加坡节点
-      - 韩国节点
-      - 加拿大节点
-      - 英国节点
-      - 法国节点
-      - 德国节点
-      - 荷兰节点
-      - 土耳其节点
-      - 俄罗斯节点
-      - 其他地区
+    <<: *SelectAU
+    icon: "https://raw.githubusercontent.com/0heartland0/clash/main/icon/SNS.png"
 
   - name: NVIDIA
-    icon: https://raw.githubusercontent.com/0heartland0/clash/main/icon/Nvidia.png
-    type: fallback
-    url: https://cp.cloudflare.com/generate_204
-    interval: 60
-    proxies:
-      - 香港节点
-      - 台湾节点
-      - 美国节点
-      - 日本节点
-      - 新加坡节点
-      - 韩国节点
-      - 加拿大节点
-      - 英国节点
-      - 法国节点
-      - 德国节点
-      - 荷兰节点
-      - 土耳其节点
-      - 俄罗斯节点
-      - 其他地区
+    <<: *SelectAU
+    icon: "https://raw.githubusercontent.com/0heartland0/clash/main/icon/Nvidia.png"
 
   - name: 微软服务
-    icon: https://raw.githubusercontent.com/0heartland0/clash/main/icon/Microsoft.png
-    type: fallback
-    url: https://cp.cloudflare.com/generate_204
-    interval: 60
-    proxies:
-      - 香港节点
-      - 台湾节点
-      - 美国节点
-      - 日本节点
-      - 新加坡节点
-      - 韩国节点
-      - 加拿大节点
-      - 英国节点
-      - 法国节点
-      - 德国节点
-      - 荷兰节点
-      - 土耳其节点
-      - 俄罗斯节点
-      - 其他地区
+    <<: *SelectAU
+    icon: "https://raw.githubusercontent.com/0heartland0/clash/main/icon/Microsoft.png"
 
   - name: OneDrive
-    icon: https://raw.githubusercontent.com/0heartland0/clash/main/icon/OneDrive.png
-    type: fallback
-    url: https://cp.cloudflare.com/generate_204
-    interval: 60
-    proxies:
-      - 香港节点
-      - 台湾节点
-      - 美国节点
-      - 日本节点
-      - 新加坡节点
-      - 韩国节点
-      - 加拿大节点
-      - 英国节点
-      - 法国节点
-      - 德国节点
-      - 荷兰节点
-      - 土耳其节点
-      - 俄罗斯节点
-      - 其他地区
+    <<: *SelectAU
+    icon: "https://raw.githubusercontent.com/0heartland0/clash/main/icon/OneDrive.png"
 
   - name: 谷歌服务
-    icon: https://raw.githubusercontent.com/0heartland0/clash/main/icon/Google.png
-    type: fallback
-    url: https://cp.cloudflare.com/generate_204
-    interval: 60
-    proxies:
-      - 香港节点
-      - 台湾节点
-      - 美国节点
-      - 日本节点
-      - 新加坡节点
-      - 韩国节点
-      - 加拿大节点
-      - 英国节点
-      - 法国节点
-      - 德国节点
-      - 荷兰节点
-      - 土耳其节点
-      - 俄罗斯节点
-      - 其他地区
+    <<: *SelectUS
+    icon: "https://raw.githubusercontent.com/0heartland0/clash/main/icon/Google.png"
 
   - name: 谷歌FCM
-    icon: https://raw.githubusercontent.com/0heartland0/clash/main/icon/Google.png
-    type: fallback
-    url: https://cp.cloudflare.com/generate_204
-    interval: 60
-    proxies:
-      - 香港节点
-      - 台湾节点
-      - 美国节点
-      - 日本节点
-      - 新加坡节点
-      - 韩国节点
-      - 加拿大节点
-      - 英国节点
-      - 法国节点
-      - 德国节点
-      - 荷兰节点
-      - 土耳其节点
-      - 俄罗斯节点
-      - 其他地区
+    <<: *SelectUS
+    icon: "https://raw.githubusercontent.com/0heartland0/clash/main/icon/Google.png"
 
   - name: YouTube
-    icon: https://raw.githubusercontent.com/0heartland0/clash/main/icon/YouTube.png
-    type: fallback
-    url: https://cp.cloudflare.com/generate_204
-    interval: 60
-    proxies:
-      - 香港节点
-      - 台湾节点
-      - 美国节点
-      - 日本节点
-      - 新加坡节点
-      - 韩国节点
-      - 加拿大节点
-      - 英国节点
-      - 法国节点
-      - 德国节点
-      - 荷兰节点
-      - 土耳其节点
-      - 俄罗斯节点
-      - 其他地区
+    <<: *SelectUS
+    icon: "https://raw.githubusercontent.com/0heartland0/clash/main/icon/YouTube.png"
 
   - name: TikTok
-    icon: https://raw.githubusercontent.com/0heartland0/clash/main/icon/TikTok.png
-    type: fallback
-    url: https://cp.cloudflare.com/generate_204
-    interval: 60
-    proxies:
-      - 香港节点
-      - 台湾节点
-      - 美国节点
-      - 日本节点
-      - 新加坡节点
-      - 韩国节点
-      - 加拿大节点
-      - 英国节点
-      - 法国节点
-      - 德国节点
-      - 荷兰节点
-      - 土耳其节点
-      - 俄罗斯节点
-      - 其他地区
+    <<: *SelectJP
+    icon: "https://raw.githubusercontent.com/0heartland0/clash/main/icon/TikTok.png"
 
   - name: Netflix
-    icon: https://raw.githubusercontent.com/0heartland0/clash/main/icon/Netflix.png
-    type: fallback
-    url: https://cp.cloudflare.com/generate_204
-    interval: 60
-    proxies:
-      - 香港节点
-      - 台湾节点
-      - 美国节点
-      - 日本节点
-      - 新加坡节点
-      - 韩国节点
-      - 加拿大节点
-      - 英国节点
-      - 法国节点
-      - 德国节点
-      - 荷兰节点
-      - 土耳其节点
-      - 俄罗斯节点
-      - 其他地区
+    <<: *SelectSG
+    icon: "https://raw.githubusercontent.com/0heartland0/clash/main/icon/Netflix.png"
 
   - name: 国外媒体
-    icon: https://raw.githubusercontent.com/0heartland0/clash/main/icon/ForeignMedia.png
-    type: fallback
-    url: https://cp.cloudflare.com/generate_204
-    interval: 60
-    proxies:
-      - 香港节点
-      - 台湾节点
-      - 美国节点
-      - 日本节点
-      - 新加坡节点
-      - 韩国节点
-      - 加拿大节点
-      - 英国节点
-      - 法国节点
-      - 德国节点
-      - 荷兰节点
-      - 土耳其节点
-      - 俄罗斯节点
-      - 其他地区
+    <<: *SelectAU
+    icon: "https://raw.githubusercontent.com/0heartland0/clash/main/icon/ForeignMedia.png"
 
   - name: 苹果服务
-    icon: https://raw.githubusercontent.com/0heartland0/clash/main/icon/Apple.png
-    type: fallback
-    url: https://cp.cloudflare.com/generate_204
-    interval: 60
-    proxies:
-      - 香港节点
-      - 台湾节点
-      - 美国节点
-      - 日本节点
-      - 新加坡节点
-      - 韩国节点
-      - 加拿大节点
-      - 英国节点
-      - 法国节点
-      - 德国节点
-      - 荷兰节点
-      - 土耳其节点
-      - 俄罗斯节点
-      - 其他地区
+    <<: *SelectMS
+    icon: "https://raw.githubusercontent.com/0heartland0/clash/main/icon/Apple.png"
 
   - name: 游戏平台
-    icon: https://raw.githubusercontent.com/0heartland0/clash/main/icon/Game.png
-    type: fallback
-    url: https://cp.cloudflare.com/generate_204
-    interval: 60
-    proxies:
-      - 香港节点
-      - 台湾节点
-      - 美国节点
-      - 日本节点
-      - 新加坡节点
-      - 韩国节点
-      - 加拿大节点
-      - 英国节点
-      - 法国节点
-      - 德国节点
-      - 荷兰节点
-      - 土耳其节点
-      - 俄罗斯节点
-      - 其他地区
+    <<: *SelectMS
+    icon: "https://raw.githubusercontent.com/0heartland0/clash/main/icon/Game.png"
 
   - name: Steam
-    icon: https://raw.githubusercontent.com/0heartland0/clash/main/icon/Steam.png
-    type: fallback
-    url: https://cp.cloudflare.com/generate_204
-    interval: 60
-    proxies:
-      - 香港节点
-      - 台湾节点
-      - 美国节点
-      - 日本节点
-      - 新加坡节点
-      - 韩国节点
-      - 加拿大节点
-      - 英国节点
-      - 法国节点
-      - 德国节点
-      - 荷兰节点
-      - 土耳其节点
-      - 俄罗斯节点
-      - 其他地区
+    <<: *SelectMS
+    icon: "https://raw.githubusercontent.com/0heartland0/clash/main/icon/Steam.png"
 
   - name: 非标端口
-    type: select
-    icon: https://raw.githubusercontent.com/0heartland0/clash/main/icon/Proxy.png
-    proxies:
-      - 全球直连
-      - 漏网之鱼
+    <<: *SelectMH
+    icon: "https://raw.githubusercontent.com/0heartland0/clash/main/icon/Speedtest.png"
 
   - name: 漏网之鱼
-    icon: https://raw.githubusercontent.com/0heartland0/clash/main/icon/match.png
-    type: fallback
-    url: https://cp.cloudflare.com/generate_204
-    interval: 60
-    proxies:
-      - 香港节点
-      - 台湾节点
-      - 美国节点
-      - 日本节点
-      - 新加坡节点
-      - 韩国节点
-      - 加拿大节点
-      - 英国节点
-      - 法国节点
-      - 德国节点
-      - 荷兰节点
-      - 土耳其节点
-      - 俄罗斯节点
-      - 其他地区
+    <<: *SelectMH
+    icon: "https://raw.githubusercontent.com/0heartland0/clash/main/icon/Proxy.png"
 
   - name: 遵循规则
-    type: select
-    icon: https://raw.githubusercontent.com/0heartland0/clash/main/icon/match.png
-    proxies:
-      - 漏网之鱼
-
-  - name: 香港节点
-    type: url-test
-    icon: https://raw.githubusercontent.com/0heartland0/clash/main/icon/Hong_Kong.png
-    url: https://cp.cloudflare.com/generate_204
-    interval: 120
-    tolerance: 20
-    use:
-      - Airport
-    filter: (🇭🇰|港|\bHK(?:[-_ ]?\d+(?:[-_ ]?[A-Za-z]{2,})?)?\b|hk|Hong Kong|HongKong|hongkong|HONG KONG|HONGKONG|深港|HKG|九龙|Kowloon|新界|沙田|荃湾|葵涌)
-
-  - name: 台湾节点
-    type: url-test
-    icon: https://raw.githubusercontent.com/0heartland0/clash/main/icon/Taiwan.png
-    url: https://cp.cloudflare.com/generate_204
-    interval: 120
-    tolerance: 20
-    use:
-      - Airport
-    filter: (🇨🇳|台|新北|彰化|\bTW(?:[-_ ]?\d+(?:[-_ ]?[A-Za-z]{2,})?)?\b|Taiwan|TAIWAN|TWN|TPE|ROC)
-
-    - name: 美国节点
-    type: url-test
-    icon: https://raw.githubusercontent.com/0heartland0/clash/main/icon/United_States.png
-    url: https://cp.cloudflare.com/generate_204
-    interval: 120
-    tolerance: 20
-    use:
-      - Airport
-    filter: (🇺🇸|美|波特兰|达拉斯|俄勒冈|凤凰城|费利蒙|硅谷|拉斯维加斯|洛杉矶|圣何塞|圣克拉拉|西雅图|芝加哥|纽约|纽纽|亚特兰大|迈阿密|华盛顿|\bUS(?:[-_ ]?\d+(?:[-_ ]?[A-Za-z]{2,})?)?\b|United States|UnitedStates|UNITED STATES|USA|America|AMERICA|JFK|EWR|IAD|ATL|ORD|MIA|NYC|LAX|SFO|SEA|DFW|SJC)
-
-  - name: 日本节点
-    type: url-test
-    icon: https://raw.githubusercontent.com/0heartland0/clash/main/icon/Japan.png
-    url: https://cp.cloudflare.com/generate_204
-    interval: 120
-    tolerance: 20
-    use:
-      - Airport
-    filter: (🇯🇵|日本|川日|东京|大阪|泉日|埼玉|沪日|深日|\bJP(?:[-_ ]?\d+(?:[-_ ]?[A-Za-z]{2,})?)?\b|Japan|JAPAN|JPN|NRT|HND|KIX|TYO|OSA|关西|Kansai|KANSAI)
-
-  - name: 新加坡节点
-    type: url-test
-    icon: https://raw.githubusercontent.com/0heartland0/clash/main/icon/Singapore.png
-    url: https://cp.cloudflare.com/generate_204
-    interval: 120
-    tolerance: 20
-    use:
-      - Airport
-    filter: (🇸🇬|新加坡|坡|狮城|\bSG(?:[-_ ]?\d+(?:[-_ ]?[A-Za-z]{2,})?)?\b|Singapore|SINGAPORE|SIN)
-
-  - name: 韩国节点
-    type: url-test
-    icon: https://raw.githubusercontent.com/0heartland0/clash/main/icon/Korea.png
-    url: https://cp.cloudflare.com/generate_204
-    interval: 120
-    tolerance: 20
-    use:
-      - Airport
-    filter: (🇰🇷|\bKR(?:[-_ ]?\d+(?:[-_ ]?[A-Za-z]{2,})?)?\b|Korea|KOREA|KOR|首尔|韩|韓|春川|Chuncheon|ICN)
-
-  - name: 加拿大节点
-    type: url-test
-    icon: https://raw.githubusercontent.com/0heartland0/clash/main/icon/Canada.png
-    url: https://cp.cloudflare.com/generate_204
-    interval: 120
-    tolerance: 20
-    use:
-      - Airport
-    filter: (🇨🇦|加拿大|\bCA(?:[-_ ]?\d+(?:[-_ ]?[A-Za-z]{2,})?)?\b|Canada|CANADA|CAN|渥太华|温哥华|卡尔加里|蒙特利尔|Montreal|YVR|YYZ|YUL)
-
-  - name: 英国节点
-    type: url-test
-    icon: https://raw.githubusercontent.com/0heartland0/clash/main/icon/United_Kingdom.png
-    url: https://cp.cloudflare.com/generate_204
-    interval: 120
-    tolerance: 20
-    use:
-      - Airport
-    filter: (🇬🇧|英国|Britain|United Kingdom|UNITED KINGDOM|England|伦敦|曼彻斯特|Manchester|\bUK(?:[-_ ]?\d+(?:[-_ ]?[A-Za-z]{2,})?)?\b|GBR|LHR|MAN)
-
-  - name: 法国节点
-    type: url-test
-    icon: https://raw.githubusercontent.com/0heartland0/clash/main/icon/France.png
-    url: https://cp.cloudflare.com/generate_204
-    interval: 120
-    tolerance: 20
-    use:
-      - Airport
-    filter: (🇫🇷|法国|\bFR(?:[-_ ]?\d+(?:[-_ ]?[A-Za-z]{2,})?)?\b|France|FRANCE|FRA|巴黎|马赛|Marseille|CDG|MRS)
-
-  - name: 德国节点
-    type: url-test
-    icon: https://raw.githubusercontent.com/0heartland0/clash/main/icon/Germany.png
-    url: https://cp.cloudflare.com/generate_204
-    interval: 120
-    tolerance: 20
-    use:
-      - Airport
-    filter: (🇩🇪|德国|Germany|GERMANY|\bDE(?:[-_ ]?\d+(?:[-_ ]?[A-Za-z]{2,})?)?\b|DEU|柏林|法兰克福|慕尼黑|Munich|MUC)
-
-  - name: 荷兰节点
-    type: url-test
-    icon: https://raw.githubusercontent.com/0heartland0/clash/main/icon/Netherlands.png
-    url: https://cp.cloudflare.com/generate_204
-    interval: 120
-    tolerance: 20
-    use:
-      - Airport
-    filter: (🇳🇱|荷兰|Netherlands|NETHERLANDS|\bNL(?:[-_ ]?\d+(?:[-_ ]?[A-Za-z]{2,})?)?\b|NLD|阿姆斯特丹|AMS)
-
-  - name: 土耳其节点
-    type: url-test
-    icon: https://raw.githubusercontent.com/0heartland0/clash/main/icon/Turkey.png
-    url: https://cp.cloudflare.com/generate_204
-    interval: 120
-    tolerance: 20
-    use:
-      - Airport
-    filter: (🇹🇷|土耳其|Turkey|TURKEY|Türkiye|\bTR(?:[-_ ]?\d+(?:[-_ ]?[A-Za-z]{2,})?)?\b|TUR|IST|ANK)
-
-  - name: 俄罗斯节点
-    type: url-test
-    icon: https://raw.githubusercontent.com/0heartland0/clash/main/icon/Russia.png
-    url: https://cp.cloudflare.com/generate_204
-    interval: 120
-    tolerance: 20
-    use:
-      - Airport
-    filter: (🇷🇺|(?<!白)俄罗斯|(?<!白)俄|莫斯科|圣彼得堡|新西伯利亚|海参崴|符拉迪沃斯托克|哈巴罗夫斯克|伯力|\bRU(?:[-_ ]?\d+)?\b|Russia)
-
-  - name: 其他地区
-    type: url-test
-    icon: https://raw.githubusercontent.com/0heartland0/clash/main/icon/Other.png
-    url: https://cp.cloudflare.com/generate_204
-    interval: 120
-    tolerance: 20
-    use:
-      - Airport
-    filter: (^(?!.*(港|\bHK(?:[-_ ]?\d+(?:[-_ ]?[A-Za-z]{2,})?)?\b|hk|Hong Kong|HongKong|hongkong|HONG KONG|HONGKONG|深港|HKG|🇭🇰|九龙|Kowloon|新界|沙田|荃湾|葵涌|台|新北|彰化|\bTW(?:[-_ ]?\d+(?:[-_ ]?[A-Za-z]{2,})?)?\b|Taiwan|TAIWAN|TWN|TPE|ROC|🇨🇳|\bKR(?:[-_ ]?\d+(?:[-_ ]?[A-Za-z]{2,})?)?\b|美|波特兰|达拉斯|俄勒冈|凤凰城|费利蒙|硅谷|拉斯维加斯|洛杉矶|圣何塞|圣克拉拉|西雅图|芝加哥|纽约|纽纽|亚特兰大|迈阿密|华盛顿|\bUS(?:[-_ ]?\d+(?:[-_ ]?[A-Za-z]{2,})?)?\b|United States|UnitedStates|UNITED STATES|USA|America|AMERICA|JFK|EWR|IAD|ATL|ORD|MIA|NYC|LAX|SFO|SEA|DFW|SJC|🇺🇸|日本|川日|东京|大阪|泉日|埼玉|沪日|深日|\bJP(?:[-_ ]?\d+(?:[-_ ]?[A-Za-z]{2,})?)?\b|Japan|JAPAN|JPN|NRT|HND|KIX|TYO|OSA|🇯🇵|关西|Kansai|KANSAI|新加坡|坡|狮城|\bSG(?:[-_ ]?\d+(?:[-_ ]?[A-Za-z]{2,})?)?\b|Singapore|SINGAPORE|SIN|🇸🇬|Korea|KOREA|KOR|首尔|韩|韓|春川|Chuncheon|ICN|🇰🇷|加拿大|\bCA(?:[-_ ]?\d+(?:[-_ ]?[A-Za-z]{2,})?)?\b|Canada|CANADA|CAN|渥太华|温哥华|卡尔加里|蒙特利尔|Montreal|YVR|YYZ|YUL|🇨🇦|英国|Britain|United Kingdom|UNITED KINGDOM|England|伦敦|曼彻斯特|Manchester|\bUK(?:[-_ ]?\d+(?:[-_ ]?[A-Za-z]{2,})?)?\b|GBR|LHR|MAN|🇬🇧|法国|\bFR(?:[-_ ]?\d+(?:[-_ ]?[A-Za-z]{2,})?)?\b|France|FRANCE|FRA|巴黎|马赛|Marseille|CDG|MRS|🇫🇷|德国|Germany|GERMANY|\bDE(?:[-_ ]?\d+(?:[-_ ]?[A-Za-z]{2,})?)?\b|DEU|柏林|法兰克福|慕尼黑|Munich|MUC|🇩🇪|荷兰|Netherlands|NETHERLANDS|\bNL(?:[-_ ]?\d+(?:[-_ ]?[A-Za-z]{2,})?)?\b|NLD|阿姆斯特丹|AMS|🇳🇱|土耳其|Turkey|TURKEY|Türkiye|\bTR(?:[-_ ]?\d+(?:[-_ ]?[A-Za-z]{2,})?)?\b|TUR|IST|ANK|🇹🇷|🇷🇺|(?<!白)俄罗斯|(?<!白)俄|莫斯科|圣彼得堡|新西伯利亚|海参崴|符拉迪沃斯托克|哈巴罗夫斯克|伯力|\bRU(?:[-_ ]?\d+)?\b|Russia)).*)
+    <<: *SelectMH
+    icon: "https://raw.githubusercontent.com/0heartland0/clash/main/icon/Proxy.png"
 
   - name: 全球直连
-    type: select
-    icon: https://raw.githubusercontent.com/0heartland0/clash/main/icon/Direct.png
-    url: http://wifi.vivo.com.cn/generate_204
-    interval: 60
+    type: url-test
+    hidden: true
     proxies:
       - DIRECT
+    icon: "https://raw.githubusercontent.com/0heartland0/clash/main/icon/Direct.png"
+
+# =========================================
+#                 规则配置
+# =========================================
+rules:
+  - RULE-SET,private,全球直连
+  - RULE-SET,private_ip,全球直连,no-resolve
+  - RULE-SET,giveup_direct,全球直连
+  - RULE-SET,giveup_proxy,手动选择
+  - RULE-SET,Custom_Direct_Domain,全球直连
+  - RULE-SET,Custom_Direct_IP,全球直连,no-resolve
+  - RULE-SET,Custom_Proxy_Domain,手动选择
+  - RULE-SET,Custom_Proxy_IP,手动选择,no-resolve
+  - RULE-SET,google-cn,全球直连
+  - RULE-SET,category-games@cn,全球直连
+  - RULE-SET,Steam_CDN_Domain,全球直连
+  - RULE-SET,Steam_CDN_IP,全球直连,no-resolve
+  - RULE-SET,category-game-platforms-download,全球直连
+  - RULE-SET,category-public-tracker,全球直连
+  - RULE-SET,category-communication,即时通讯
+  - RULE-SET,category-social-media,社交媒体
+  - RULE-SET,openai,ChatGPT
+  - RULE-SET,google-gemini,Gemini
+  - RULE-SET,category-ai,AI服务
+  - RULE-SET,github,GitHub
+  - RULE-SET,category-speedtest,测速工具
+  - RULE-SET,steam,Steam
+  - RULE-SET,youtube,YouTube
+  - RULE-SET,apple-tvplus,AppleTV+
+  - RULE-SET,PayPal,PayPal
+  - RULE-SET,apple,苹果服务
+  - RULE-SET,microsoft,微软服务
+  - RULE-SET,google,谷歌服务
+  - RULE-SET,tiktok,TikTok
+  - RULE-SET,netflix,Netflix
+  - RULE-SET,disney,DisneyPlus
+  - RULE-SET,hbo,HBO
+  - RULE-SET,primevideo,PrimeVideo
+  - RULE-SET,category-emby,Emby
+  - RULE-SET,spotify,Spotify
+  - RULE-SET,bahamut,Bahamut
+  - RULE-SET,category-games,游戏平台
+  - RULE-SET,category-entertainment,国外媒体
+  - RULE-SET,gfw,手动选择
+  - RULE-SET,telegram,即时通讯,no-resolve
+  - RULE-SET,twitter,社交媒体,no-resolve
+  - RULE-SET,facebook,社交媒体,no-resolve
+  - RULE-SET,google-ip,谷歌服务,no-resolve
+  - RULE-SET,netflix-ip,Netflix,no-resolve
+  - RULE-SET,cn,全球直连
+  - RULE-SET,cn-ip,全球直连,no-resolve
+  - MATCH,漏网之鱼
+
+# =========================================
+#            规则提供者
+# =========================================
+rule-providers:
+
+  giveup_direct:
+    <<: *class
+    url: "https://raw.githubusercontent.com/Giveupmoon/Clash_Rules_Yaml/refs/heads/main/Rules/Giveup_Direct.list"
+
+  giveup_proxy:
+    <<: *class
+    url: "https://raw.githubusercontent.com/Giveupmoon/Clash_Rules_Yaml/refs/heads/main/Rules/Giveup_Proxy.list"
+
+  private:
+    <<: *domain
+    url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/private.mrs"
+
+  private_ip:
+    <<: *ip
+    url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geoip/private.mrs"
+
+  Custom_Direct_Domain:
+    <<: *domain
+    url: "https://raw.githubusercontent.com/Aethersailor/Custom_OpenClash_Rules/main/rule/Custom_Direct_Domain.mrs"
+
+  Custom_Direct_IP:
+    <<: *ip
+    url: "https://raw.githubusercontent.com/Aethersailor/Custom_OpenClash_Rules/main/rule/Custom_Direct_IP.mrs"
+
+  Custom_Proxy_Domain:
+    <<: *domain
+    url: "https://raw.githubusercontent.com/Aethersailor/Custom_OpenClash_Rules/main/rule/Custom_Proxy_Domain.mrs"
+
+  Custom_Proxy_IP:
+    <<: *ip
+    url: "https://raw.githubusercontent.com/Aethersailor/Custom_OpenClash_Rules/refs/heads/main/rule/Custom_Proxy_IP.mrs"
+
+  google-cn:
+    <<: *domain
+    url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/google-cn.mrs"
+
+  category-games@cn:
+    <<: *domain
+    url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/category-games@cn.mrs"
+
+  Steam_CDN_Domain:
+    <<: *domain
+    url: "https://raw.githubusercontent.com/Aethersailor/Custom_OpenClash_Rules/refs/heads/main/rule/Steam_CDN_Domain.mrs"
+
+  Steam_CDN_IP:
+    <<: *ip
+    url: "https://raw.githubusercontent.com/Aethersailor/Custom_OpenClash_Rules/refs/heads/main/rule/Steam_CDN_IP.mrs"
+
+  category-game-platforms-download:
+    <<: *domain
+    url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/category-game-platforms-download.mrs"
+
+  category-public-tracker:
+    <<: *domain
+    url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/category-public-tracker.mrs"
+
+  category-communication:
+    <<: *domain
+    url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/category-communication.mrs"
+
+  category-social-media:
+    <<: *domain
+    url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/category-social-media-!cn.mrs"
+
+  openai:
+    <<: *domain
+    url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/openai.mrs"
+
+  google-gemini:
+    <<: *domain
+    url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/google-gemini.mrs"
+
+  category-ai:
+    <<: *domain
+    url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/category-ai-!cn.mrs"
+
+  github:
+   <<: *domain
+   url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/github.mrs"
+
+  category-speedtest:
+    <<: *domain
+    url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/category-speedtest.mrs"
+
+  steam:
+    <<: *domain
+    url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/steam.mrs"
+
+  youtube:
+    <<: *domain
+    url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/youtube.mrs"
+
+  apple-tvplus:
+    <<: *domain
+    url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/apple-tvplus.mrs"
+
+  apple:
+    <<: *domain
+    url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/apple.mrs"
+
+  microsoft:
+    <<: *domain
+    url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/microsoft.mrs"
+
+  google:
+    <<: *domain
+    url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/google.mrs"
+
+  tiktok:
+    <<: *domain
+    url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/tiktok.mrs"
+
+  netflix:
+    <<: *domain
+    url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/netflix.mrs"
+
+  disney:
+    <<: *domain
+    url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/disney.mrs"
+
+  hbo:
+    <<: *domain
+    url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/hbo.mrs"
+
+  primevideo:
+    <<: *domain
+    url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/primevideo.mrs"
+
+  category-emby:
+    <<: *domain
+    url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/category-emby.mrs"
+
+  spotify:
+    <<: *domain
+    url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/spotify.mrs"
+
+  bahamut:
+    <<: *domain
+    url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/bahamut.mrs"
+
+  category-games:
+    <<: *domain
+    url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/category-games.mrs"
+
+  category-entertainment:
+    <<: *domain
+    url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/category-entertainment.mrs"
+
+  gfw:
+    <<: *domain
+    url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/gfw.mrs"
+
+  telegram:
+    <<: *ip
+    url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geoip/telegram.mrs"
+
+  twitter:
+    <<: *ip
+    url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geoip/twitter.mrs"
+
+  facebook:
+    <<: *ip
+    url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geoip/facebook.mrs"
+
+  google-ip:
+    <<: *ip
+    url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geoip/google.mrs"
+
+  netflix-ip:
+    <<: *ip
+    url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geoip/netflix.mrs"
+
+  cn:
+    <<: *domain
+    url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/cn.mrs"
+
+  cn-ip:
+    <<: *ip
+    url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geoip/cn.mrs"
+
+  PayPal:
+    <<: *domain
+    url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/paypal.mrs"
