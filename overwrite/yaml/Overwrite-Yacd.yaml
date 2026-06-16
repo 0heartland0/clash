@@ -469,6 +469,13 @@ proxy-providers:
 # =========================================
 proxy-groups:
 
+  - name: 🎯 全球直连
+    type: select
+    proxies:
+      - DIRECT
+    url: http://connect.rom.miui.com/generate_204
+    icon: "https://raw.githubusercontent.com/0heartland0/clash/main/icon/Direct.png"
+
   - name: 🚀 手动选择
     <<: *SelectMS
     icon: "https://raw.githubusercontent.com/0heartland0/clash/main/icon/Select.png"
@@ -564,13 +571,6 @@ proxy-groups:
   - name: 🐟 遵循规则
     <<: *SelectFollow
     icon: "https://raw.githubusercontent.com/0heartland0/clash/main/icon/Proxy.png"
-
-  - name: 🎯 全球直连
-    type: select
-    proxies:
-      - DIRECT
-    url: http://connect.rom.miui.com/generate_204
-    icon: "https://raw.githubusercontent.com/0heartland0/clash/main/icon/Direct.png"
 
   - name: 🇭🇰 香港节点
     <<: *BaseURL-test
