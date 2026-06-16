@@ -389,7 +389,7 @@ anchor:
     type: http
     interval: 86400
     behavior: classical
-    format: text
+    format: yaml
 
 # =========================================
 #              代理提供商
@@ -602,13 +602,21 @@ rule-providers:
     <<: *domain
     url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/category-games@cn.mrs"
 
-  Steam_CDN_Domain:
-    <<: *domain
-    url: "https://raw.githubusercontent.com/Aethersailor/Custom_OpenClash_Rules/refs/heads/main/rule/Steam_CDN_Domain.mrs"
+  Steam_CDN_Classical:
+    <<: *class
+    url: "https://raw.githubusercontent.com/0heartland0/clash/main/rule/yaml/Steam_CDN_Classical.yaml"
 
-  Steam_CDN_IP:
-    <<: *ip
-    url: "https://raw.githubusercontent.com/Aethersailor/Custom_OpenClash_Rules/refs/heads/main/rule/Steam_CDN_IP.mrs"
+  SSH_Classical:
+    <<: *class
+    url: "https://raw.githubusercontent.com/0heartland0/clash/main/rule/yaml/SSH_Classical.yaml"
+
+  Nvidia_Classical:
+    <<: *class
+    url: "https://raw.githubusercontent.com/0heartland0/clash/main/rule/yaml/Nvidia_Classical.yaml"
+
+  Port_Direct:
+    <<: *class
+    url: "https://raw.githubusercontent.com/0heartland0/clash/main/rule/yaml/Port_Direct.yaml"
 
   category-game-platforms-download:
     <<: *domain
@@ -629,6 +637,26 @@ rule-providers:
   openai:
     <<: *domain
     url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/openai.mrs"
+
+  cursor:
+    <<: *domain
+    url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/cursor.mrs"
+
+  poe:
+    <<: *domain
+    url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/poe.mrs"
+
+  stripe:
+    <<: *domain
+    url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/stripe.mrs"
+
+  anthropic:
+    <<: *domain
+    url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/anthropic.mrs"
+
+  bing:
+    <<: *domain
+    url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/bing.mrs"
 
   google-gemini:
     <<: *domain
