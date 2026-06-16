@@ -568,7 +568,6 @@ proxy-groups:
 
   - name: 全球直连
     type: select
-    hidden: true
     proxies:
       - DIRECT
     icon: "https://raw.githubusercontent.com/0heartland0/clash/main/icon/Direct.png"
@@ -576,58 +575,72 @@ proxy-groups:
   - name: 香港节点
     <<: *BaseURL-test
     filter: *FilterHK
+    icon: "https://raw.githubusercontent.com/0heartland0/clash/main/icon/Hong_Kong.png"
 
   - name: 台湾节点
     <<: *BaseURL-test
     filter: *FilterCN
+    icon: "https://raw.githubusercontent.com/0heartland0/clash/main/icon/Taiwan.png"
 
   - name: 美国节点
     <<: *BaseURL-test
     filter: *FilterUS
+    icon: "https://raw.githubusercontent.com/0heartland0/clash/main/icon/United_States.png"
 
   - name: 日本节点
     <<: *BaseURL-test
     filter: *FilterJP
+    icon: "https://raw.githubusercontent.com/0heartland0/clash/main/icon/Japan.png"
 
   - name: 新加坡节点
     <<: *BaseURL-test
     filter: *FilterSG
+    icon: "https://raw.githubusercontent.com/0heartland0/clash/main/icon/Singapore.png"
 
   - name: 韩国节点
     <<: *BaseURL-test
     filter: *FilterKR
+    icon: "https://raw.githubusercontent.com/0heartland0/clash/main/icon/Korea.png"
 
   - name: 加拿大节点
     <<: *BaseURL-test
     filter: *FilterCA
+    icon: "https://raw.githubusercontent.com/0heartland0/clash/main/icon/Canada.png"
 
   - name: 英国节点
     <<: *BaseURL-test
     filter: *FilterGB
+    icon: "https://raw.githubusercontent.com/0heartland0/clash/main/icon/United_Kingdom.png"
 
   - name: 法国节点
     <<: *BaseURL-test
     filter: *FilterFR
+    icon: "https://raw.githubusercontent.com/0heartland0/clash/main/icon/France.png"
 
   - name: 德国节点
     <<: *BaseURL-test
     filter: *FilterDE
+    icon: "https://raw.githubusercontent.com/0heartland0/clash/main/icon/Germany.png"
 
   - name: 荷兰节点
     <<: *BaseURL-test
     filter: *FilterNL
+    icon: "https://raw.githubusercontent.com/0heartland0/clash/main/icon/Netherlands.png"
 
   - name: 土耳其节点
     <<: *BaseURL-test
     filter: *FilterTR
+    icon: "https://raw.githubusercontent.com/0heartland0/clash/main/icon/Turkey.png"
 
   - name: 俄罗斯节点
     <<: *BaseURL-test
     filter: *FilterRU
+    icon: "https://raw.githubusercontent.com/0heartland0/clash/main/icon/Russia.png"
 
   - name: 其他地区
     <<: *BaseURL-test
     filter: *FilterOR
+    icon: "https://raw.githubusercontent.com/0heartland0/clash/main/icon/Other.png"
 
 # =========================================
 #                 规则配置
