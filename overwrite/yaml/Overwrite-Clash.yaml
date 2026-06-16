@@ -385,6 +385,18 @@ anchor:
     behavior: domain
     format: mrs
 
+  ip_yaml: &ip_yaml
+    type: http
+    interval: 86400
+    behavior: ipcidr
+    format: yaml
+
+  domain_yaml: &domain_yaml
+    type: http
+    interval: 86400
+    behavior: domain
+    format: yaml
+
   class: &class
     type: http
     interval: 86400
@@ -590,19 +602,19 @@ rule-providers:
     url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geoip/private.mrs"
 
   Direct_Domain:
-    <<: *domain
+    <<: *domain_yaml
     url: "https://raw.githubusercontent.com/0heartland0/clash/main/rule/yaml/Direct_Domain.yaml"
 
   Direct_IP:
-    <<: *ip
+    <<: *ip_yaml
     url: "https://raw.githubusercontent.com/0heartland0/clash/main/rule/yaml/Direct_IP.yaml"
 
   Proxy_Domain:
-    <<: *domain
+    <<: *domain_yaml
     url: "https://raw.githubusercontent.com/0heartland0/clash/main/rule/yaml/Proxy_Domain.yaml"
 
   Proxy_IP:
-    <<: *ip
+    <<: *ip_yaml
     url: "https://raw.githubusercontent.com/0heartland0/clash/main/rule/yaml/Proxy_IP.yaml"
 
   google-cn:
