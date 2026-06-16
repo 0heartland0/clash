@@ -85,6 +85,7 @@ anchor:
   SelectMS: &SelectMS
     type: select
     proxies:
+      - 自动选择
       - 香港节点
       - 台湾节点
       - 美国节点
@@ -99,10 +100,33 @@ anchor:
       - 土耳其节点
       - 俄罗斯节点
       - 其他地区
+      - 全球直连
     use:
       - Sub-store
 
   SelectMH: &SelectMH
+    type: select
+    proxies:
+      - 自动选择
+      - 香港节点
+      - 台湾节点
+      - 美国节点
+      - 日本节点
+      - 新加坡节点
+      - 韩国节点
+      - 加拿大节点
+      - 英国节点
+      - 法国节点
+      - 德国节点
+      - 荷兰节点
+      - 土耳其节点
+      - 俄罗斯节点
+      - 其他地区
+      - 全球直连
+    use:
+      - Sub-store
+
+  SelectAI: &SelectAI
     type: select
     proxies:
       - 香港节点
@@ -121,6 +145,18 @@ anchor:
       - 其他地区
     use:
       - Sub-store
+    filter: "^(🇭🇰|港|\bHK(?:[-_ ]?\d+(?:[-_ ]?[A-Za-z]{2,})?)?\b|hk|Hong Kong|HongKong|hongkong|HONG KONG|HONGKONG|深港|HKG|九龙|Kowloon|新界|沙田|荃湾|葵涌).*$"
+
+  SelectPort: &SelectPort
+    type: select
+    proxies:
+      - 漏网之鱼
+      - 全球直连
+
+  SelectFollow: &SelectFollow
+    type: select
+    proxies:
+      - 漏网之鱼
 
   SelectHK: &SelectHK
     type: select
@@ -433,63 +469,63 @@ proxy-groups:
     icon: "https://raw.githubusercontent.com/0heartland0/clash/main/icon/Terminal.png"
 
   - name: AI服务
-    <<: *SelectUS
+    <<: *SelectAI
     icon: "https://raw.githubusercontent.com/0heartland0/clash/main/icon/Bot.png"
 
   - name: GitHub
-    <<: *SelectAU
+    <<: *SelectMS
     icon: "https://raw.githubusercontent.com/0heartland0/clash/main/icon/GitHub.png"
 
   - name: PayPal
-    <<: *SelectAU
+    <<: *SelectMS
     icon: "https://raw.githubusercontent.com/0heartland0/clash/main/icon/PayPal.png"
 
   - name: 测速工具
-    <<: *SelectAU
+    <<: *SelectMS
     icon: "https://raw.githubusercontent.com/0heartland0/clash/main/icon/Speedtest.png"
 
   - name: 海外通讯
-    <<: *SelectAU
+    <<: *SelectMS
     icon: "https://raw.githubusercontent.com/0heartland0/clash/main/icon/Telegram.png"
 
   - name: 社交媒体
-    <<: *SelectAU
+    <<: *SelectMS
     icon: "https://raw.githubusercontent.com/0heartland0/clash/main/icon/SNS.png"
 
   - name: NVIDIA
-    <<: *SelectAU
+    <<: *SelectMS
     icon: "https://raw.githubusercontent.com/0heartland0/clash/main/icon/Nvidia.png"
 
   - name: 微软服务
-    <<: *SelectAU
+    <<: *SelectMS
     icon: "https://raw.githubusercontent.com/0heartland0/clash/main/icon/Microsoft.png"
 
   - name: OneDrive
-    <<: *SelectAU
+    <<: *SelectMS
     icon: "https://raw.githubusercontent.com/0heartland0/clash/main/icon/OneDrive.png"
 
   - name: 谷歌服务
-    <<: *SelectUS
+    <<: *SelectMS
     icon: "https://raw.githubusercontent.com/0heartland0/clash/main/icon/Google.png"
 
   - name: 谷歌FCM
-    <<: *SelectUS
+    <<: *SelectMS
     icon: "https://raw.githubusercontent.com/0heartland0/clash/main/icon/Google.png"
 
   - name: YouTube
-    <<: *SelectUS
+    <<: *SelectMS
     icon: "https://raw.githubusercontent.com/0heartland0/clash/main/icon/YouTube.png"
 
   - name: TikTok
-    <<: *SelectJP
+    <<: *SelectMS
     icon: "https://raw.githubusercontent.com/0heartland0/clash/main/icon/TikTok.png"
 
   - name: Netflix
-    <<: *SelectSG
+    <<: *SelectMS
     icon: "https://raw.githubusercontent.com/0heartland0/clash/main/icon/Netflix.png"
 
   - name: 国外媒体
-    <<: *SelectAU
+    <<: *SelectMS
     icon: "https://raw.githubusercontent.com/0heartland0/clash/main/icon/ForeignMedia.png"
 
   - name: 苹果服务
@@ -505,7 +541,7 @@ proxy-groups:
     icon: "https://raw.githubusercontent.com/0heartland0/clash/main/icon/Steam.png"
 
   - name: 非标端口
-    <<: *SelectMH
+    <<: *SelectPort
     icon: "https://raw.githubusercontent.com/0heartland0/clash/main/icon/Speedtest.png"
 
   - name: 漏网之鱼
@@ -513,7 +549,7 @@ proxy-groups:
     icon: "https://raw.githubusercontent.com/0heartland0/clash/main/icon/Proxy.png"
 
   - name: 遵循规则
-    <<: *SelectMH
+    <<: *SelectFollow
     icon: "https://raw.githubusercontent.com/0heartland0/clash/main/icon/Proxy.png"
 
   - name: 全球直连
