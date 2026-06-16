@@ -21,7 +21,8 @@ anchor:
   # 策略组类型模板
   BaseURL-test: &BaseURL-test
     type: url-test
-    include-all: true
+    use:
+      - Sub-store
     tolerance: 20
     interval: 120
     url: https://cp.cloudflare.com/generate_204
@@ -74,7 +75,8 @@ anchor:
 # 策略组代理列表模板 - 预定义的代理节点优先级排序
   SelectAU: &SelectAU
     type: url-test
-    include-all: true
+    use:
+      - Sub-store
     tolerance: 20
     interval: 120
     filter: "^((?!(直连)).)*$"
