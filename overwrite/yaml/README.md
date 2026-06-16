@@ -14,19 +14,19 @@ Overwrite.yaml
 https://testingcf.jsdelivr.net/gh/0heartland0/clash@main/overwrite/yaml/Overwrite.yaml
 ```
 
-Overwrite-Yacd.conf
+Overwrite-Yacd.yaml
 ```
 https://testingcf.jsdelivr.net/gh/0heartland0/clash@main/overwrite/yaml/Overwrite-Yacd.yaml
 ```
 
 **直连链接：**
 
-Overwrite.conf
+Overwrite.yaml
 ```
 https://raw.githubusercontent.com/0heartland0/clash/main/overwrite/yaml/Overwrite.yaml
 ```
 
-Overwrite-Yacd.conf
+Overwrite-Yacd.yaml
 ```
 https://raw.githubusercontent.com/0heartland0/clash/main/overwrite/yaml/Overwrite-Yacd.yaml
 ```
