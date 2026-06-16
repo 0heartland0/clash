@@ -75,7 +75,6 @@ anchor:
   SelectAU: &SelectAU
     type: url-test
     proxies:
-      - 全球直连
       - 香港节点
       - 台湾节点
       - 美国节点
