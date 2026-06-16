@@ -84,6 +84,7 @@ anchor:
   SelectMS: &SelectMS
     type: select
     proxies:
+      - 全球直连
       - 自动选择
       - 香港节点
       - 台湾节点
@@ -99,13 +100,13 @@ anchor:
       - 土耳其节点
       - 俄罗斯节点
       - 其他地区
-      - 全球直连
     use:
       - Sub-store
 
   SelectMH: &SelectMH
     type: select
     proxies:
+      - 全球直连
       - 自动选择
       - 香港节点
       - 台湾节点
@@ -121,7 +122,6 @@ anchor:
       - 土耳其节点
       - 俄罗斯节点
       - 其他地区
-      - 全球直连
     use:
       - Sub-store
 
@@ -148,8 +148,8 @@ anchor:
   SelectPort: &SelectPort
     type: select
     proxies:
-      - 漏网之鱼
       - 全球直连
+      - 漏网之鱼
 
   SelectFollow: &SelectFollow
     type: select
