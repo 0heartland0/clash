@@ -520,6 +520,62 @@ proxy-groups:
       - DIRECT
     icon: "https://raw.githubusercontent.com/0heartland0/clash/main/icon/Direct.png"
 
+  - name: 香港节点
+    <<: *BaseURL-test
+    filter: *FilterHK
+
+  - name: 台湾节点
+    <<: *BaseURL-test
+    filter: *FilterCN
+
+  - name: 美国节点
+    <<: *BaseURL-test
+    filter: *FilterUS
+
+  - name: 日本节点
+    <<: *BaseURL-test
+    filter: *FilterJP
+
+  - name: 新加坡节点
+    <<: *BaseURL-test
+    filter: *FilterSG
+
+  - name: 韩国节点
+    <<: *BaseURL-test
+    filter: *FilterKR
+
+  - name: 加拿大节点
+    <<: *BaseURL-test
+    filter: *FilterCA
+
+  - name: 英国节点
+    <<: *BaseURL-test
+    filter: *FilterGB
+
+  - name: 法国节点
+    <<: *BaseURL-test
+    filter: *FilterFR
+
+  - name: 德国节点
+    <<: *BaseURL-test
+    filter: *FilterDE
+
+  - name: 荷兰节点
+    <<: *BaseURL-test
+    filter: *FilterNL
+
+  - name: 土耳其节点
+    <<: *BaseURL-test
+    filter: *FilterTR
+
+  - name: 俄罗斯节点
+    <<: *BaseURL-test
+    filter: *FilterRU
+
+  - name: 其他地区
+    <<: *BaseURL-test
+    filter: *FilterOR
+
 # =========================================
 #                 规则配置
 # =========================================
