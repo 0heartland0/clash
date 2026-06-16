@@ -570,6 +570,7 @@ proxy-groups:
     type: select
     proxies:
       - DIRECT
+    url: http://connect.rom.miui.com/generate_204
     icon: "https://raw.githubusercontent.com/0heartland0/clash/main/icon/Direct.png"
 
   - name: 香港节点
