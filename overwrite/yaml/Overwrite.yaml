@@ -79,6 +79,7 @@ anchor:
       - Sub-store
     tolerance: 20
     interval: 120
+    url: https://cp.cloudflare.com/generate_204
     filter: "^((?!(直连)).)*$"
 
   SelectMS: &SelectMS
