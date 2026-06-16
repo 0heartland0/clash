@@ -419,7 +419,7 @@ proxy-groups:
 
   - name: 手动选择
     <<: *SelectMS
-    icon: "https://raw.githubusercontent.com/0heartland0/clash/main/icon/Rocket.png"
+    icon: "https://raw.githubusercontent.com/0heartland0/clash/main/icon/Select.png"
 
   - name: 自动选择
     <<: *SelectAU
