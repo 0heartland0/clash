@@ -514,33 +514,29 @@ proxy-groups:
 rules:
   - RULE-SET,private,全球直连
   - RULE-SET,private_ip,全球直连,no-resolve
-  - RULE-SET,giveup_direct,全球直连
-  - RULE-SET,giveup_proxy,手动选择
-  - RULE-SET,Custom_Direct_Domain,全球直连
-  - RULE-SET,Custom_Direct_IP,全球直连,no-resolve
-  - RULE-SET,Custom_Proxy_Domain,手动选择
-  - RULE-SET,Custom_Proxy_IP,手动选择,no-resolve
+  - RULE-SET,Direct_Classical,全球直连
+  - RULE-SET,Proxy_Classical,手动选择
   - RULE-SET,google-cn,全球直连
   - RULE-SET,category-games@cn,全球直连
-  - RULE-SET,Steam_CDN_Domain,全球直连
-  - RULE-SET,Steam_CDN_IP,全球直连,no-resolve
+  - RULE-SET,Steam_CDN_Classical,全球直连
   - RULE-SET,category-game-platforms-download,全球直连
   - RULE-SET,category-public-tracker,全球直连
+  - RULE-SET,SSH_Classical,SSH专用
+  - RULE-SET,Nvidia_Classical,NVIDIA
   - RULE-SET,category-communication,海外通讯
   - RULE-SET,category-social-media,社交媒体
-  - RULE-SET,openai,ChatGPT
+  - RULE-SET,openai,AI服务
   - RULE-SET,cursor,AI服务
   - RULE-SET,poe,AI服务
   - RULE-SET,stripe,AI服务
   - RULE-SET,anthropic,AI服务
   - RULE-SET,bing,AI服务
-  - RULE-SET,google-gemini,Gemini
+  - RULE-SET,google-gemini,AI服务
   - RULE-SET,category-ai,AI服务
   - RULE-SET,github,GitHub
   - RULE-SET,category-speedtest,测速工具
   - RULE-SET,steam,Steam
   - RULE-SET,youtube,YouTube
-  - RULE-SET,apple-tvplus,AppleTV+
   - RULE-SET,PayPal,PayPal
   - RULE-SET,apple,苹果服务
   - RULE-SET,microsoft,微软服务
@@ -557,7 +553,7 @@ rules:
   - RULE-SET,netflix-ip,Netflix,no-resolve
   - RULE-SET,cn,全球直连
   - RULE-SET,cn-ip,全球直连,no-resolve
-  - RULE-SET,Port_Direct,非标准端口
+  - RULE-SET,Port_Direct,非标端口
   - MATCH,漏网之鱼
 
 
@@ -566,13 +562,13 @@ rules:
 # =========================================
 rule-providers:
 
-  giveup_direct:
+  Direct_Classical:
     <<: *class
-    url: "https://raw.githubusercontent.com/Giveupmoon/Clash_Rules_Yaml/refs/heads/main/Rules/Giveup_Direct.list"
+    url: "https://raw.githubusercontent.com/0heartland0/clash/main/rule/yaml/Direct_Classical.yaml"
 
-  giveup_proxy:
+  Proxy_Classical:
     <<: *class
-    url: "https://raw.githubusercontent.com/Giveupmoon/Clash_Rules_Yaml/refs/heads/main/Rules/Proxy.list"
+    url: "https://raw.githubusercontent.com/0heartland0/clash/main/rule/yaml/Proxy_Classical.yaml"
 
   private:
     <<: *domain
