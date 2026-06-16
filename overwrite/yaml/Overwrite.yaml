@@ -26,7 +26,6 @@ anchor:
     tolerance: 20
     interval: 120
     url: https://cp.cloudflare.com/generate_204
-    hidden: true
 
   # 节点筛选正则
   # 香港
