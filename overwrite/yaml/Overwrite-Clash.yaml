@@ -516,6 +516,10 @@ rules:
   - RULE-SET,private_ip,全球直连,no-resolve
   - RULE-SET,Direct_Classical,全球直连
   - RULE-SET,Proxy_Classical,手动选择
+  - DOMAIN-SUFFIX,gstatic.com,谷歌服务
+  - DOMAIN-SUFFIX,googleapis.com,谷歌服务
+  - DOMAIN-SUFFIX,googleusercontent.com,谷歌服务
+  - DOMAIN,c.pki.goog,谷歌服务
   - RULE-SET,google-cn,全球直连
   - RULE-SET,category-games@cn,全球直连
   - RULE-SET,Steam_CDN_Classical,全球直连
@@ -524,6 +528,8 @@ rules:
   - RULE-SET,SSH_Classical,SSH专用
   - RULE-SET,Nvidia_Classical,NVIDIA
   - RULE-SET,category-communication,海外通讯
+  - RULE-SET,telegram,海外通讯,no-resolve
+  - RULE-SET,talkatone,海外通讯
   - RULE-SET,category-social-media,社交媒体
   - RULE-SET,openai,AI服务
   - RULE-SET,cursor,AI服务
@@ -540,6 +546,9 @@ rules:
   - RULE-SET,PayPal,PayPal
   - RULE-SET,apple,苹果服务
   - RULE-SET,microsoft,微软服务
+  - RULE-SET,onedrive,OneDrive
+  - RULE-SET,youtube,YouTube
+  - RULE-SET,googlefcm,谷歌FCM
   - RULE-SET,google,谷歌服务
   - RULE-SET,tiktok,TikTok
   - RULE-SET,netflix,Netflix
@@ -690,9 +699,17 @@ rule-providers:
     <<: *domain
     url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/microsoft.mrs"
 
+  onedrive:
+    <<: *domain
+    url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/onedrive.mrs"
+
   google:
     <<: *domain
     url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/google.mrs"
+
+  googlefcm:
+    <<: *domain
+    url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/googlefcm.mrs"
 
   tiktok:
     <<: *domain
@@ -713,6 +730,10 @@ rule-providers:
   gfw:
     <<: *domain
     url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/gfw.mrs"
+
+  talkatone:
+    <<: *domain
+    url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/talkatone.mrs"
 
   telegram:
     <<: *ip
