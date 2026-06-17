@@ -26,13 +26,13 @@
 * **类型**：`http`  
 * **订阅链接**：根据使用场景选择  
 
-#### 🔹 主路由用户 - Url-test -无IPV6
+#### 🔹 主路由用户 - Url-test -无IPv6
 
 ```bash
 https://raw.githubusercontent.com/0heartland0/clash/main/overwrite/conf/Overwrite-Yacd.conf
 ```
 
-#### 🔹 主路由用户 - Url-test -无IPV6 -如果机场只提供临时订阅链接，建议使用低频版
+#### 🔹 主路由用户 - Url-test -无IPv6 -如果机场只提供临时订阅链接，建议使用低频版
 
 ```bash
 https://raw.githubusercontent.com/0heartland0/clash/main/overwrite/conf/Overwrite-Yacd-SlowUpdate.conf
@@ -50,13 +50,13 @@ https://raw.githubusercontent.com/0heartland0/clash/main/overwrite/conf/Overwrit
 https://raw.githubusercontent.com/0heartland0/clash/main/overwrite/conf/Overwrite-Yacd-SlowUpdate-IPv6.conf
 ```
 
-#### 🔹 主路由用户 - Url-test -无IPV6 -路由器访问 GitHub raw 不稳定，使用 CDN 版
+#### 🔹 主路由用户 - Url-test -无IPv6 -路由器访问 GitHub raw 不稳定，使用 CDN 版
 
 ```bash
 https://testingcf.jsdelivr.net/gh/0heartland0/clash@main/overwrite/conf/Overwrite-Yacd-CDN.conf
 ```
 
-#### 🔹 主路由用户 - Url-test -无IPV6 -需要 低频拉取和 CDN 加速
+#### 🔹 主路由用户 - Url-test -无IPv6 -需要 低频拉取和 CDN 加速
 
 ```bash
 https://testingcf.jsdelivr.net/gh/0heartland0/clash@main/overwrite/conf/Overwrite-Yacd-SlowUpdate-CDN.conf
@@ -81,7 +81,7 @@ https://testingcf.jsdelivr.net/gh/0heartland0/clash@main/overwrite/conf/Overwrit
 在 OpenClash 中启用覆写模块前，请根据需要设置以下环境变量：
 
 #### ✴️ 必填变量 — 机场订阅链接
-* 仅支持单一订阅，多机场用户建议搭配Sub-store聚合后载入配置。
+* 仅支持单一订阅，多机场用户建议搭配 Sub-Store 聚合后载入配置。
 
 ```bash
 EN_KEY=你的机场订阅链接
