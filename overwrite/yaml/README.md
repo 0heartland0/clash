@@ -6,9 +6,9 @@
 | 名称 | 适用内核 | 内容 |
 |:-:|:-:|:-:|
 | Overwrite.yaml | Meta | 适配 Metacubexd、Zashboard 面板 |
-| Overwrite-Yacd.yaml | Meta | 适配 Yacd 面板，使用 emoji 图标 |
-| Overwrite-SlowUpdate.yaml | Meta | 低频订阅拉取版，适配 Metacubexd、Zashboard 面板 |
-| Overwrite-Yacd-SlowUpdate.yaml | Meta | 低频订阅拉取版，适配 Yacd 面板，使用 emoji 图标 |
+| Overwrite-Yacd.yaml | Meta | 适配 Yacd、Metacubexd、Zashboard、Dashboard 面板，使用 emoji 图标 |
+| Overwrite-SlowUpdate.yaml | Meta | 低频订阅拉取版(几乎不更新)，适配 Metacubexd、Zashboard 面板 |
+| Overwrite-Yacd-SlowUpdate.yaml | Meta | 低频订阅拉取版(几乎不更新)，适配 Yacd、Metacubexd、Zashboard、Dashboard 面板，使用 emoji 图标 |
 
 **加速链接：**
 
