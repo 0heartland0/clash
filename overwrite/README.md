@@ -22,16 +22,16 @@
 * **类型**：`http`  
 * **订阅链接**：根据使用场景选择  
 
-#### 🔹 主路由用户 - Url-test
+#### 🔹 主路由用户 - Url-test【ipv6 写】
+
+```bash
+https://raw.githubusercontent.com/0heartland0/clash/main/overwrite/conf/Overwrite-ipv6.conf
+```
+
+#### 🔹 主路由无需 IPv6 用户 - Url-test
 
 ```bash
 https://raw.githubusercontent.com/0heartland0/clash/main/overwrite/conf/Overwrite-Yacd.conf
-```
-
-#### 🔹 主路由无需 IPv6 用户 - Url-test【待写】
-
-```bash
-https://raw.githubusercontent.com/0heartland0/clash/main/overwrite/conf/Overwrite-noipv6.conf
 ```
 
 ---
