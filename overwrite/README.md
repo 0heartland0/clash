@@ -22,7 +22,7 @@
 * **类型**：`http`  
 * **订阅链接**：根据使用场景选择  
 
-#### 🔹 主路由用户 - Url-test【ipv6 写】
+#### 🔹 主路由用户 - Url-test【ipv6 待写】
 
 ```bash
 https://raw.githubusercontent.com/0heartland0/clash/main/overwrite/conf/Overwrite-ipv6.conf
