@@ -133,5 +133,4 @@ STACK_TYPE = gvisor
 5. 如果机场订阅链接过期，可能出现 `[Provider] Sub-store pull error: 401 Unauthorized`，需要重新获取临时订阅链接。
 6. CDN 版只影响覆写配置文件下载地址，不会改变机场订阅链接。
 7. 如果使用 Yacd 面板且希望看到图标，优先选择 `Yacd` 版本。
-8. 首次运行建议提前更新 GeoIP、GeoSite、GeoASN 数据库。
 ---
