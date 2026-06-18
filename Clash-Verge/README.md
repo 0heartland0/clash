@@ -6,7 +6,7 @@
 Clash-Verge.yaml
 ```
 
-配置默认启用 TUN、IPv6、Fake-IP、流量嗅探和分流规则。策略组与规则基于本仓库维护的 Clash 规则体系。
+配置默认启用虚拟网卡模式（TUN）、IPv6、Fake-IP、流量嗅探和分流规则。策略组与规则基于本仓库维护的 Clash 规则体系。
 
 ## 使用方法
 
@@ -23,21 +23,39 @@ proxy-providers:
 
 3. 将占位内容替换为自己的机场通用订阅链接。
 4. 在 Clash Verge 中选择 `订阅 -> 新建 -> Local` 导入该文件。
-5. 启用配置后，进入 `设置 -> 虚拟网卡模式`，开启 TUN。
+5. 启用配置后，进入 `设置 -> 虚拟网卡模式`，开启虚拟网卡模式（TUN）。
 
 ### Remote 导入
 
-如果配置文件上传到 GitHub，可使用 Raw 地址作为 Remote 订阅链接，例如：
+Remote 模式只能让 Clash Verge 在线下载本仓库的 YAML 模板，不能自动替换模板里的机场订阅占位。
+
+如果配置文件上传到 GitHub，可将 Raw 地址填入 Clash Verge 的 `订阅链接`：
 
 ```text
 https://raw.githubusercontent.com/0heartland0/clash/main/Clash-Verge/Clash-Verge.yaml
 ```
 
-公开仓库中的配置请保留订阅占位，不要提交真实机场订阅链接。真实订阅链接通常等同账号凭证，泄露后可能被他人使用。
+公开仓库中的配置会保留：
 
-## TUN 与 DNS 防泄露
+```yaml
+proxy-providers:
+  Sub-store:
+    url: "订阅链接请复制通用订阅"
+```
 
-配置文件已包含 TUN 基础配置：
+因此，直接用上面的 Raw 地址创建 `Remote` 配置时，Clash Verge 只能下载到配置模板，不能拉取到代理节点。
+
+如需实际使用，请选择以下方式之一：
+
+- 推荐：下载 `Clash-Verge.yaml`，在本地替换订阅占位后，通过 `Local` 导入。
+- 私用：Fork 本仓库到私有仓库，在私有仓库中替换订阅链接，再使用自己的 Raw 地址导入。
+- 高级：自行搭建配置生成器，在服务端将订阅占位替换为真实订阅后返回 YAML。
+
+不要把真实机场订阅链接提交到公开 GitHub。订阅链接通常等同账号凭证，泄露后可能被他人使用。
+
+## 虚拟网卡模式（TUN）与 DNS 防泄露
+
+配置文件已包含虚拟网卡模式（TUN）基础配置：
 
 ```yaml
 tun:
@@ -53,7 +71,7 @@ tun:
   endpoint-independent-nat: true
 ```
 
-Clash Verge 的虚拟网卡设置可能由客户端 UI 独立管理。导入配置后，建议手动检查：
+Clash Verge 中“虚拟网卡模式”就是 TUN 模式。该设置可能由客户端 UI 独立管理，导入配置后建议手动检查：
 
 ```text
 设置 -> 虚拟网卡模式 -> 严格路由
@@ -73,4 +91,4 @@ ipconfig /flushdns
 - `Remote` 模式只能拉取在线 YAML，不会自动替换配置中的订阅占位。
 - 如果要公开发布到 GitHub，不要在配置文件中写入真实订阅链接。
 - 如果只在本机使用，可以复制一份本地私有配置，填入真实订阅后用 `Local` 导入。
-- TUN 模式通常需要 Clash Verge 开启 Service Mode 或管理员权限。
+- 虚拟网卡模式（TUN）通常需要按 Clash Verge 的提示启用服务模式，或以管理员权限运行。
