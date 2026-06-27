@@ -654,18 +654,13 @@ rules:
   - RULE-SET,Proxy_Classical,手动选择
   - RULE-SET,Proxy_Domain,手动选择
   - RULE-SET,Proxy_IP,手动选择,no-resolve
-#  - DOMAIN-SUFFIX,gstatic.com,🇬 谷歌服务
-#  - DOMAIN-SUFFIX,googleapis.com,🇬 谷歌服务
-#  - DOMAIN-SUFFIX,googleusercontent.com,🇬 谷歌服务
-#  - DOMAIN,c.pki.goog,🇬 谷歌服务
-#  - RULE-SET,google-cn,🎯 全球直连
-  - DOMAIN-SUFFIX,gstatic.com,🇬 谷歌服务
-  - DOMAIN-SUFFIX,googleapis.com,🇬 谷歌服务
-  - DOMAIN-SUFFIX,googleusercontent.com,🇬 谷歌服务
-  - DOMAIN-SUFFIX,google.com,🇬 谷歌服务
-  - DOMAIN-SUFFIX,gvt1.com,🇬 谷歌服务
-  - DOMAIN,c.pki.goog,🇬 谷歌服务
-  - RULE-SET,google-cn,🎯 全球直连
+  - DOMAIN-SUFFIX,gstatic.com,谷歌服务
+  - DOMAIN-SUFFIX,googleapis.com,谷歌服务
+  - DOMAIN-SUFFIX,googleusercontent.com,谷歌服务
+  - DOMAIN-SUFFIX,google.com,谷歌服务
+  - DOMAIN-SUFFIX,gvt1.com,谷歌服务
+  - DOMAIN,c.pki.goog,谷歌服务
+  - RULE-SET,google-cn,全球直连
   - RULE-SET,category-games@cn,全球直连
   - RULE-SET,Steam_CDN_Classical,全球直连
   - RULE-SET,category-game-platforms-download,全球直连
