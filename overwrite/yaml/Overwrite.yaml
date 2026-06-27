@@ -659,7 +659,7 @@ rules:
   - DOMAIN-SUFFIX,googleusercontent.com,谷歌服务
   - DOMAIN-SUFFIX,google.com,谷歌服务
   - DOMAIN-SUFFIX,gvt1.com,谷歌服务
-  - DOMAIN,c.pki.goog,谷歌服务
+  - DOMAIN-SUFFIX,pki.goog,谷歌服务
   - RULE-SET,google-cn,全球直连
   - RULE-SET,category-games@cn,全球直连
   - RULE-SET,Steam_CDN_Classical,全球直连
