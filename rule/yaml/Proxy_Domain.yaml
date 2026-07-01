@@ -15,3 +15,6 @@ payload:
   - '+.services.googleapis.cn'
   - '+.stun.playstation.net'
   - '+.xn--ngstr-lra8j.com'
+  - '+.oracle.com'
+  - '+.oraclecloud.com'
+  - '+.oracleinfinity.io'
